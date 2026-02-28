@@ -29,18 +29,12 @@ def scrape_finviz(filters: dict, max_results: int = MAX_CANDIDATES) -> list[Stoc
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "lxml")
 
-        # Find the results table
-        table = soup.find("table", class_="screener_table") or soup.find(
-            "table", {"id": "screener-views-table"}
-        )
+        # Find the screener results table
+        table = soup.find("table", class_="screener_table")
         if not table:
-            # Try alternate: look for rows with ticker links
-            rows = soup.select("tr.screener-body-table-nw")
-            if not rows:
-                break
-        else:
-            rows = table.find_all("tr")[1:]  # skip header
+            break
 
+        rows = table.find_all("tr")[1:]  # skip header
         if not rows:
             break
 

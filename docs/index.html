@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock Research</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #e6edf3; --muted: #8b949e; --green: #3fb950; --yellow: #d29922; --red: #f85149; --blue: #58a6ff; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 16px; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 1.4em; margin-bottom: 4px; }
+  .subtitle { color: var(--muted); font-size: 0.85em; margin-bottom: 20px; }
+  .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 80px; text-align: center; }
+  .stat-num { font-size: 1.5em; font-weight: 700; }
+  .stat-label { color: var(--muted); font-size: 0.75em; }
+  .stock-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+  .stock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .ticker { font-size: 1.1em; font-weight: 700; color: var(--blue); text-decoration: none; }
+  .verdict { font-size: 0.8em; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+  .verdict-strong-buy { background: var(--green); color: #000; }
+  .verdict-buy { background: #238636; color: #fff; }
+  .verdict-watch { background: var(--yellow); color: #000; }
+  .verdict-pass { background: var(--border); color: var(--muted); }
+  .one-liner { color: var(--muted); font-size: 0.85em; margin-bottom: 10px; }
+  .metrics { display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.8em; margin-bottom: 10px; }
+  .metric { color: var(--muted); }
+  .metric b { color: var(--text); }
+  .cases { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.82em; }
+  @media (max-width: 500px) { .cases { grid-template-columns: 1fr; } }
+  .case h4 { color: var(--muted); font-size: 0.9em; margin-bottom: 4px; }
+  .case ul { padding-left: 16px; }
+  .case li { margin-bottom: 3px; }
+  .bull li { color: var(--green); }
+  .bear li { color: var(--red); }
+  .smart-money { font-size: 0.8em; color: var(--muted); margin-top: 8px; }
+  .smart-money b { color: var(--yellow); }
+  footer { text-align: center; color: var(--muted); font-size: 0.75em; margin-top: 30px; padding: 10px; }
+</style>
+</head>
+<body>
+  <h1>📊 Stock Research</h1>
+  <p class="subtitle">Last updated: 2026-02-28 05:24 · 100 stocks analyzed</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num" style="color:var(--green)">0</div><div class="stat-label">Strong Buy</div></div>
+    <div class="stat"><div class="stat-num" style="color:#238636">23</div><div class="stat-label">Buy</div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--yellow)">50</div><div class="stat-label">Watch</div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--muted)">27</div><div class="stat-label">Pass</div></div>
+  </div>
+
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/ADBE" target="_blank">ADBE</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Adobe Inc (Technology) — $109.8B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.7</b></span>
+      <span class="metric">Fwd P/E <b>9.9</b></span>
+      <span class="metric">ROE <b>55.4%</b></span>
+      <span class="metric">FCF Yield <b>8.0%</b></span>
+      <span class="metric">vs 52w High <b>-42%</b></span>
+      <span class="metric">Short <b>3.0%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (55.4%)</li><li>High free cash flow yield (8.0%)</li><li>Wide gross margins (89.3%)</li><li>Beaten down -42% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BRO" target="_blank">BRO</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Brown & Brown, Inc (Financial) — $24.5B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>22.5</b></span>
+      <span class="metric">Fwd P/E <b>14.4</b></span>
+      <span class="metric">ROE <b>11.2%</b></span>
+      <span class="metric">FCF Yield <b>5.7%</b></span>
+      <span class="metric">vs 52w High <b>-43%</b></span>
+      <span class="metric">Short <b>6.3%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (5.7%)</li><li>Beaten down -43% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 22.5)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BYD" target="_blank">BYD</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Boyd Gaming Corp (Consumer Cyclical) — $6.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>3.7</b></span>
+      <span class="metric">Fwd P/E <b>10.2</b></span>
+      <span class="metric">ROE <b>87.8%</b></span>
+      <span class="metric">FCF Yield <b>9.5%</b></span>
+      <span class="metric">vs 52w High <b>-7%</b></span>
+      <span class="metric">Short <b>5.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (87.8%)</li><li>High free cash flow yield (9.5%)</li><li>Wide gross margins (59.4%)</li><li>Cheap on earnings (P/E 3.7)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.04)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CARG" target="_blank">CARG</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">CarGurus Inc (Consumer Cyclical) — $2.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>19.7</b></span>
+      <span class="metric">Fwd P/E <b>10.5</b></span>
+      <span class="metric">ROE <b>43.0%</b></span>
+      <span class="metric">FCF Yield <b>7.5%</b></span>
+      <span class="metric">vs 52w High <b>-22%</b></span>
+      <span class="metric">Short <b>10.4%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (43.0%)</li><li>High free cash flow yield (7.5%)</li><li>Wide gross margins (92.8%)</li><li>Beaten down -22% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>High short interest (10.4%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CART" target="_blank">CART</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Maplebear Inc (Consumer Cyclical) — $9.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>23.6</b></span>
+      <span class="metric">Fwd P/E <b>8.0</b></span>
+      <span class="metric">ROE <b>14.9%</b></span>
+      <span class="metric">FCF Yield <b>6.5%</b></span>
+      <span class="metric">vs 52w High <b>-30%</b></span>
+      <span class="metric">Short <b>17.0%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (6.5%)</li><li>Wide gross margins (73.7%)</li><li>Beaten down -30% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.33)</li><li>Not cheap (P/E 23.6)</li><li>High short interest (17.0%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CI" target="_blank">CI</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Cigna Group (Healthcare) — $77.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>13.1</b></span>
+      <span class="metric">Fwd P/E <b>8.7</b></span>
+      <span class="metric">ROE <b>15.1%</b></span>
+      <span class="metric">FCF Yield <b>13.7%</b></span>
+      <span class="metric">vs 52w High <b>-17%</b></span>
+      <span class="metric">Short <b>2.3%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (15.1%)</li><li>High free cash flow yield (13.7%)</li><li>Beaten down -17% from highs — potential entry</li><li>Cheap on earnings (P/E 13.1)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Thin margins (2.2%)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CNX" target="_blank">CNX</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">CNX Resources Corp (Energy) — $5.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>11.4</b></span>
+      <span class="metric">Fwd P/E <b>10.0</b></span>
+      <span class="metric">ROE <b>15.0%</b></span>
+      <span class="metric">FCF Yield <b>9.2%</b></span>
+      <span class="metric">vs 52w High <b>-1%</b></span>
+      <span class="metric">Short <b>18.9%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (15.0%)</li><li>High free cash flow yield (9.2%)</li><li>Wide gross margins (73.1%)</li><li>Cheap on earnings (P/E 11.4)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>High short interest (18.9%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CRK" target="_blank">CRK</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Comstock Resources, Inc (Energy) — $5.8B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.7</b></span>
+      <span class="metric">Fwd P/E <b>15.1</b></span>
+      <span class="metric">ROE <b>15.9%</b></span>
+      <span class="metric">FCF Yield <b>-5.8%</b></span>
+      <span class="metric">vs 52w High <b>-37%</b></span>
+      <span class="metric">Short <b>22.1%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (15.9%)</li><li>Wide gross margins (62.0%)</li><li>Beaten down -37% from highs — potential entry</li><li>Cheap on earnings (P/E 14.7)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>High short interest (22.1%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CVSA" target="_blank">CVSA</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Covista Inc (Consumer Defensive) — $3.6B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.4</b></span>
+      <span class="metric">Fwd P/E <b>10.9</b></span>
+      <span class="metric">ROE <b>18.0%</b></span>
+      <span class="metric">FCF Yield <b>8.5%</b></span>
+      <span class="metric">vs 52w High <b>-37%</b></span>
+      <span class="metric">Short <b>7.7%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (18.0%)</li><li>High free cash flow yield (8.5%)</li><li>Wide gross margins (57.4%)</li><li>Beaten down -37% from highs — potential entry</li><li>Cheap on earnings (P/E 14.4)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/DLO" target="_blank">DLO</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">DLocal Limited (Technology) — $3.6B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>20.8</b></span>
+      <span class="metric">Fwd P/E <b>14.0</b></span>
+      <span class="metric">ROE <b>35.6%</b></span>
+      <span class="metric">FCF Yield <b>3.2%</b></span>
+      <span class="metric">vs 52w High <b>-27%</b></span>
+      <span class="metric">Short <b>15.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (35.6%)</li><li>Beaten down -27% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 20.8)</li><li>High short interest (15.6%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/DOCS" target="_blank">DOCS</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Doximity Inc (Healthcare) — $4.6B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>20.6</b></span>
+      <span class="metric">Fwd P/E <b>15.1</b></span>
+      <span class="metric">ROE <b>23.8%</b></span>
+      <span class="metric">FCF Yield <b>4.6%</b></span>
+      <span class="metric">vs 52w High <b>-68%</b></span>
+      <span class="metric">Short <b>7.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (23.8%)</li><li>Wide gross margins (89.7%)</li><li>Beaten down -68% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.09)</li><li>Not cheap (P/E 20.6)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EAT" target="_blank">EAT</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Brinker International, Inc (Consumer Cyclical) — $6.6B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.0</b></span>
+      <span class="metric">Fwd P/E <b>12.0</b></span>
+      <span class="metric">ROE <b>177.8%</b></span>
+      <span class="metric">FCF Yield <b>4.6%</b></span>
+      <span class="metric">vs 52w High <b>-21%</b></span>
+      <span class="metric">Short <b>12.8%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (177.8%)</li><li>Beaten down -21% from highs — potential entry</li><li>Cheap on earnings (P/E 15.0)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 4.65)</li><li>High short interest (12.8%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EEFT" target="_blank">EEFT</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Euronet Worldwide Inc (Technology) — $2.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>10.0</b></span>
+      <span class="metric">Fwd P/E <b>5.7</b></span>
+      <span class="metric">ROE <b>24.5%</b></span>
+      
+      <span class="metric">vs 52w High <b>-39%</b></span>
+      <span class="metric">Short <b>13.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (24.5%)</li><li>Beaten down -39% from highs — potential entry</li><li>Cheap on earnings (P/E 10.0)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.65)</li><li>High short interest (13.6%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/ENVA" target="_blank">ENVA</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Enova International Inc (Financial) — $3.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>12.0</b></span>
+      <span class="metric">Fwd P/E <b>7.6</b></span>
+      <span class="metric">ROE <b>24.3%</b></span>
+      
+      <span class="metric">vs 52w High <b>-21%</b></span>
+      <span class="metric">Short <b>10.0%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (24.3%)</li><li>Wide gross margins (82.7%)</li><li>Beaten down -21% from highs — potential entry</li><li>Cheap on earnings (P/E 12.0)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 3.39)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EXEL" target="_blank">EXEL</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Exelixis Inc (Healthcare) — $11.8B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.8</b></span>
+      <span class="metric">Fwd P/E <b>11.0</b></span>
+      <span class="metric">ROE <b>35.5%</b></span>
+      <span class="metric">FCF Yield <b>5.3%</b></span>
+      <span class="metric">vs 52w High <b>-11%</b></span>
+      <span class="metric">Short <b>15.5%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (35.5%)</li><li>High free cash flow yield (5.3%)</li><li>Wide gross margins (96.4%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 9.30)</li><li>High short interest (15.5%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EXLS" target="_blank">EXLS</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">ExlService Holdings Inc (Technology) — $5.0B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>20.2</b></span>
+      <span class="metric">Fwd P/E <b>12.7</b></span>
+      <span class="metric">ROE <b>27.2%</b></span>
+      <span class="metric">FCF Yield <b>5.1%</b></span>
+      <span class="metric">vs 52w High <b>-36%</b></span>
+      <span class="metric">Short <b>6.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (27.2%)</li><li>High free cash flow yield (5.1%)</li><li>Beaten down -36% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 20.2)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EXPE" target="_blank">EXPE</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Expedia Group Inc (Consumer Cyclical) — $26.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>21.9</b></span>
+      <span class="metric">Fwd P/E <b>9.5</b></span>
+      <span class="metric">ROE <b>48.7%</b></span>
+      <span class="metric">FCF Yield <b>11.1%</b></span>
+      <span class="metric">vs 52w High <b>-29%</b></span>
+      <span class="metric">Short <b>6.9%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (48.7%)</li><li>High free cash flow yield (11.1%)</li><li>Wide gross margins (90.1%)</li><li>Beaten down -29% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 2.55)</li><li>Not cheap (P/E 21.9)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/FRSH" target="_blank">FRSH</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Freshworks Inc (Technology) — $2.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>12.0</b></span>
+      <span class="metric">Fwd P/E <b>11.3</b></span>
+      <span class="metric">ROE <b>16.9%</b></span>
+      <span class="metric">FCF Yield <b>7.4%</b></span>
+      <span class="metric">vs 52w High <b>-55%</b></span>
+      <span class="metric">Short <b>8.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (16.9%)</li><li>High free cash flow yield (7.4%)</li><li>Wide gross margins (85.0%)</li><li>Beaten down -55% from highs — potential entry</li><li>Cheap on earnings (P/E 12.0)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 3.22)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/FSLR" target="_blank">FSLR</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">First Solar Inc (Technology) — $21.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>13.9</b></span>
+      <span class="metric">Fwd P/E <b>7.7</b></span>
+      <span class="metric">ROE <b>17.4%</b></span>
+      <span class="metric">FCF Yield <b>4.6%</b></span>
+      <span class="metric">vs 52w High <b>-31%</b></span>
+      <span class="metric">Short <b>9.8%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (17.4%)</li><li>Beaten down -31% from highs — potential entry</li><li>Cheap on earnings (P/E 13.9)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 6.87)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/FUTU" target="_blank">FUTU</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Futu Holdings Ltd ADR (Financial) — $20.7B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>16.7</b></span>
+      <span class="metric">Fwd P/E <b>12.8</b></span>
+      <span class="metric">ROE <b>30.1%</b></span>
+      
+      <span class="metric">vs 52w High <b>-27%</b></span>
+      <span class="metric">Short <b>6.1%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (30.1%)</li><li>Wide gross margins (93.9%)</li><li>Beaten down -27% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/GMAB" target="_blank">GMAB</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Genmab ADR (Healthcare) — $18.1B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>19.0</b></span>
+      <span class="metric">Fwd P/E <b>16.3</b></span>
+      <span class="metric">ROE <b>17.5%</b></span>
+      <span class="metric">FCF Yield <b>5.9%</b></span>
+      <span class="metric">vs 52w High <b>-17%</b></span>
+      <span class="metric">Short <b>1.3%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (17.5%)</li><li>High free cash flow yield (5.9%)</li><li>Wide gross margins (93.6%)</li><li>Beaten down -17% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/GPI" target="_blank">GPI</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Group 1 Automotive, Inc (Consumer Cyclical) — $4.1B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>13.1</b></span>
+      <span class="metric">Fwd P/E <b>6.9</b></span>
+      <span class="metric">ROE <b>11.2%</b></span>
+      <span class="metric">FCF Yield <b>5.5%</b></span>
+      <span class="metric">vs 52w High <b>-33%</b></span>
+      <span class="metric">Short <b>12.0%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (5.5%)</li><li>Beaten down -33% from highs — potential entry</li><li>Cheap on earnings (P/E 13.1)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 2.10)</li><li>High short interest (12.0%) — market skepticism</li><li>Thin margins (1.4%)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/HLNE" target="_blank">HLNE</a>
+      <span class="verdict verdict-buy">Buy</span>
+    </div>
+    <p class="one-liner">Hamilton Lane Inc (Financial) — $5.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>18.8</b></span>
+      <span class="metric">Fwd P/E <b>16.4</b></span>
+      <span class="metric">ROE <b>31.7%</b></span>
+      <span class="metric">FCF Yield <b>3.9%</b></span>
+      <span class="metric">vs 52w High <b>-41%</b></span>
+      <span class="metric">Short <b>7.2%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (31.7%)</li><li>Wide gross margins (60.2%)</li><li>Beaten down -41% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/ABG" target="_blank">ABG</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Asbury Automotive Group Inc (Consumer Cyclical) — $4.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>8.5</b></span>
+      <span class="metric">Fwd P/E <b>7.2</b></span>
+      <span class="metric">ROE <b>13.3%</b></span>
+      <span class="metric">FCF Yield <b>2.1%</b></span>
+      <span class="metric">vs 52w High <b>-22%</b></span>
+      <span class="metric">Short <b>9.0%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Beaten down -22% from highs — potential entry</li><li>Cheap on earnings (P/E 8.5)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.57)</li><li>Thin margins (2.7%)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/AKO-B" target="_blank">AKO-B</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Embotelladora Andina S.A. ADR (Consumer Defensive) — $4.5B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.9</b></span>
+      <span class="metric">Fwd P/E <b>17.1</b></span>
+      <span class="metric">ROE <b>24.5%</b></span>
+      <span class="metric">FCF Yield <b>-304.9%</b></span>
+      <span class="metric">vs 52w High <b>-16%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (24.5%)</li><li>Beaten down -16% from highs — potential entry</li><li>Cheap on earnings (P/E 14.9)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/APO" target="_blank">APO</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Apollo Global Management Inc (Financial) — $60.7B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>19.1</b></span>
+      <span class="metric">Fwd P/E <b>9.6</b></span>
+      <span class="metric">ROE <b>14.7%</b></span>
+      
+      <span class="metric">vs 52w High <b>-33%</b></span>
+      <span class="metric">Short <b>5.2%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Beaten down -33% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/AR" target="_blank">AR</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Antero Resources Corp (Energy) — $11.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>18.1</b></span>
+      <span class="metric">Fwd P/E <b>9.4</b></span>
+      <span class="metric">ROE <b>9.0%</b></span>
+      <span class="metric">FCF Yield <b>-0.0%</b></span>
+      <span class="metric">vs 52w High <b>-16%</b></span>
+      <span class="metric">Short <b>4.2%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Wide gross margins (66.4%)</li><li>Beaten down -16% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/ARLP" target="_blank">ARLP</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Alliance Resource Partners, LP (Energy) — $3.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>11.0</b></span>
+      <span class="metric">Fwd P/E <b>9.7</b></span>
+      <span class="metric">ROE <b>17.1%</b></span>
+      <span class="metric">FCF Yield <b>6.8%</b></span>
+      <span class="metric">vs 52w High <b>-7%</b></span>
+      <span class="metric">Short <b>1.3%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (17.1%)</li><li>High free cash flow yield (6.8%)</li><li>Cheap on earnings (P/E 11.0)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/ASR" target="_blank">ASR</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Grupo Aeroportuario Del Sureste S.A. ADR (Industrials) — $10.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>19.1</b></span>
+      <span class="metric">Fwd P/E <b>14.1</b></span>
+      <span class="metric">ROE <b>20.2%</b></span>
+      <span class="metric">FCF Yield <b>28.1%</b></span>
+      <span class="metric">vs 52w High <b>-6%</b></span>
+      <span class="metric">Short <b>0.8%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (20.2%)</li><li>High free cash flow yield (28.1%)</li><li>Wide gross margins (55.3%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/AU" target="_blank">AU</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">AngloGold Ashanti Plc (Basic Materials) — $64.5B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>24.6</b></span>
+      <span class="metric">Fwd P/E <b>14.2</b></span>
+      <span class="metric">ROE <b>34.4%</b></span>
+      <span class="metric">FCF Yield <b>3.3%</b></span>
+      <span class="metric">vs 52w High <b>-1%</b></span>
+      <span class="metric">Short <b>1.1%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (34.4%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 24.6)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/AWI" target="_blank">AWI</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Armstrong World Industries Inc (Industrials) — $7.5B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>24.5</b></span>
+      <span class="metric">Fwd P/E <b>18.6</b></span>
+      <span class="metric">ROE <b>37.2%</b></span>
+      <span class="metric">FCF Yield <b>3.1%</b></span>
+      <span class="metric">vs 52w High <b>-16%</b></span>
+      <span class="metric">Short <b>2.1%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (37.2%)</li><li>Beaten down -16% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 24.5)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/AXP" target="_blank">AXP</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">American Express Co (Financial) — $212.8B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>20.1</b></span>
+      <span class="metric">Fwd P/E <b>15.4</b></span>
+      <span class="metric">ROE <b>34.0%</b></span>
+      
+      <span class="metric">vs 52w High <b>-20%</b></span>
+      <span class="metric">Short <b>1.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (34.0%)</li><li>Wide gross margins (63.5%)</li><li>Beaten down -20% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.91)</li><li>Not cheap (P/E 20.1)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BAP" target="_blank">BAP</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Credicorp Ltd (Financial) — $27.5B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.2</b></span>
+      <span class="metric">Fwd P/E <b>10.8</b></span>
+      <span class="metric">ROE <b>19.1%</b></span>
+      
+      <span class="metric">vs 52w High <b>-9%</b></span>
+      <span class="metric">Short <b>2.0%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (19.1%)</li><li>Cheap on earnings (P/E 14.2)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BBAR" target="_blank">BBAR</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">BBVA Argentina ADR (Financial) — $3.5B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>13.2</b></span>
+      <span class="metric">Fwd P/E <b>21.9</b></span>
+      <span class="metric">ROE <b>7.2%</b></span>
+      
+      <span class="metric">vs 52w High <b>-35%</b></span>
+      <span class="metric">Short <b>4.2%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Beaten down -35% from highs — potential entry</li><li>Cheap on earnings (P/E 13.2)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BBVA" target="_blank">BBVA</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Banco Bilbao Vizcaya Argentaria S.A. ADR (Financial) — $132.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>11.2</b></span>
+      <span class="metric">Fwd P/E <b>11.1</b></span>
+      <span class="metric">ROE <b>18.3%</b></span>
+      
+      <span class="metric">vs 52w High <b>-12%</b></span>
+      <span class="metric">Short <b>0.0%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (18.3%)</li><li>Cheap on earnings (P/E 11.2)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BFAM" target="_blank">BFAM</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Bright Horizons Family Solutions, Inc (Consumer Cyclical) — $4.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>22.2</b></span>
+      <span class="metric">Fwd P/E <b>13.1</b></span>
+      <span class="metric">ROE <b>14.8%</b></span>
+      <span class="metric">FCF Yield <b>5.0%</b></span>
+      <span class="metric">vs 52w High <b>-44%</b></span>
+      <span class="metric">Short <b>2.8%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Beaten down -44% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.31)</li><li>Not cheap (P/E 22.2)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BIRK" target="_blank">BIRK</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Birkenstock Holding Plc (Consumer Cyclical) — $7.7B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>18.2</b></span>
+      <span class="metric">Fwd P/E <b>14.4</b></span>
+      <span class="metric">ROE <b>13.7%</b></span>
+      <span class="metric">FCF Yield <b>2.3%</b></span>
+      <span class="metric">vs 52w High <b>-30%</b></span>
+      <span class="metric">Short <b>13.8%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Wide gross margins (58.7%)</li><li>Beaten down -30% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>High short interest (13.8%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BMA" target="_blank">BMA</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Banco Macro S.A. ADR (Financial) — $5.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>17.8</b></span>
+      <span class="metric">Fwd P/E <b>7.9</b></span>
+      <span class="metric">ROE <b>5.5%</b></span>
+      
+      <span class="metric">vs 52w High <b>-27%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Beaten down -27% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BTG" target="_blank">BTG</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">B2gold Corp (Basic Materials) — $8.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>23.1</b></span>
+      <span class="metric">Fwd P/E <b>5.2</b></span>
+      <span class="metric">ROE <b>12.8%</b></span>
+      <span class="metric">FCF Yield <b>7.2%</b></span>
+      <span class="metric">vs 52w High <b>-2%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (7.2%)</li><li>Wide gross margins (64.4%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 23.1)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BZ" target="_blank">BZ</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Kanzhun Ltd ADR (Communication Services) — $7.8B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>21.3</b></span>
+      <span class="metric">Fwd P/E <b>12.5</b></span>
+      <span class="metric">ROE <b>14.4%</b></span>
+      <span class="metric">FCF Yield <b>36.5%</b></span>
+      <span class="metric">vs 52w High <b>-36%</b></span>
+      <span class="metric">Short <b>3.8%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (36.5%)</li><li>Wide gross margins (84.5%)</li><li>Beaten down -36% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 21.3)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CAKE" target="_blank">CAKE</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Cheesecake Factory Inc (Consumer Cyclical) — $3.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>21.2</b></span>
+      <span class="metric">Fwd P/E <b>14.6</b></span>
+      <span class="metric">ROE <b>33.7%</b></span>
+      <span class="metric">FCF Yield <b>3.7%</b></span>
+      <span class="metric">vs 52w High <b>-7%</b></span>
+      <span class="metric">Short <b>27.1%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (33.7%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 4.88)</li><li>Not cheap (P/E 21.2)</li><li>High short interest (27.1%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CCL" target="_blank">CCL</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Carnival Corp (Consumer Cyclical) — $43.6B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.8</b></span>
+      <span class="metric">Fwd P/E <b>11.1</b></span>
+      <span class="metric">ROE <b>25.6%</b></span>
+      <span class="metric">FCF Yield <b>3.6%</b></span>
+      <span class="metric">vs 52w High <b>-7%</b></span>
+      <span class="metric">Short <b>3.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (25.6%)</li><li>Wide gross margins (55.5%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 2.28)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CDLR" target="_blank">CDLR</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Cadeler AS ADR (Industrials) — $2.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>7.5</b></span>
+      
+      <span class="metric">ROE <b>20.9%</b></span>
+      <span class="metric">FCF Yield <b>-33.5%</b></span>
+      <span class="metric">vs 52w High <b>-5%</b></span>
+      <span class="metric">Short <b>1.2%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (20.9%)</li><li>Wide gross margins (63.7%)</li><li>Cheap on earnings (P/E 7.5)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CG" target="_blank">CG</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Carlyle Group Inc (Financial) — $18.7B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>23.8</b></span>
+      <span class="metric">Fwd P/E <b>9.5</b></span>
+      <span class="metric">ROE <b>14.1%</b></span>
+      
+      <span class="metric">vs 52w High <b>-26%</b></span>
+      <span class="metric">Short <b>5.7%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Wide gross margins (76.8%)</li><li>Beaten down -26% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.97)</li><li>Not cheap (P/E 23.8)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CGAU" target="_blank">CGAU</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Centerra Gold Inc (Basic Materials) — $4.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>7.4</b></span>
+      <span class="metric">Fwd P/E <b>10.7</b></span>
+      <span class="metric">ROE <b>31.4%</b></span>
+      <span class="metric">FCF Yield <b>-0.2%</b></span>
+      <span class="metric">vs 52w High <b>-0%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (31.4%)</li><li>Cheap on earnings (P/E 7.4)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CHDN" target="_blank">CHDN</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Churchill Downs, Inc (Consumer Cyclical) — $6.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>17.5</b></span>
+      <span class="metric">Fwd P/E <b>12.4</b></span>
+      <span class="metric">ROE <b>35.7%</b></span>
+      <span class="metric">FCF Yield <b>1.3%</b></span>
+      <span class="metric">vs 52w High <b>-23%</b></span>
+      <span class="metric">Short <b>4.2%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (35.7%)</li><li>Beaten down -23% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 4.92)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CIB" target="_blank">CIB</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Grupo Cibest S.A. ADR (Financial) — $17.6B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>17.4</b></span>
+      <span class="metric">Fwd P/E <b>8.0</b></span>
+      <span class="metric">ROE <b>16.2%</b></span>
+      
+      <span class="metric">vs 52w High <b>-21%</b></span>
+      <span class="metric">Short <b>0.9%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (16.2%)</li><li>Beaten down -21% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/COP" target="_blank">COP</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Conoco Phillips (Energy) — $138.7B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>17.9</b></span>
+      <span class="metric">Fwd P/E <b>16.8</b></span>
+      <span class="metric">ROE <b>12.4%</b></span>
+      <span class="metric">FCF Yield <b>5.4%</b></span>
+      <span class="metric">vs 52w High <b>-0%</b></span>
+      <span class="metric">Short <b>1.7%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (5.4%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CPA" target="_blank">CPA</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Copa Holdings S.A (Industrials) — $5.7B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>8.6</b></span>
+      <span class="metric">Fwd P/E <b>6.9</b></span>
+      <span class="metric">ROE <b>26.1%</b></span>
+      <span class="metric">FCF Yield <b>1.2%</b></span>
+      <span class="metric">vs 52w High <b>-11%</b></span>
+      <span class="metric">Short <b>5.7%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (26.1%)</li><li>Cheap on earnings (P/E 8.6)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CPAY" target="_blank">CPAY</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Corpay Inc (Technology) — $23.0B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>21.6</b></span>
+      <span class="metric">Fwd P/E <b>11.0</b></span>
+      <span class="metric">ROE <b>29.1%</b></span>
+      <span class="metric">FCF Yield <b>8.5%</b></span>
+      <span class="metric">vs 52w High <b>-13%</b></span>
+      <span class="metric">Short <b>3.4%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (29.1%)</li><li>High free cash flow yield (8.5%)</li><li>Wide gross margins (78.6%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 2.37)</li><li>Not cheap (P/E 21.6)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CRM" target="_blank">CRM</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Salesforce Inc (Technology) — $185.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>24.9</b></span>
+      <span class="metric">Fwd P/E <b>13.1</b></span>
+      <span class="metric">ROE <b>12.4%</b></span>
+      <span class="metric">FCF Yield <b>9.1%</b></span>
+      <span class="metric">vs 52w High <b>-36%</b></span>
+      <span class="metric">Short <b>2.1%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (9.1%)</li><li>Wide gross margins (77.7%)</li><li>Beaten down -36% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 24.9)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CTRA" target="_blank">CTRA</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Coterra Energy Inc (Energy) — $23.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.1</b></span>
+      <span class="metric">Fwd P/E <b>11.2</b></span>
+      <span class="metric">ROE <b>12.3%</b></span>
+      <span class="metric">FCF Yield <b>5.5%</b></span>
+      <span class="metric">vs 52w High <b>-6%</b></span>
+      <span class="metric">Short <b>3.3%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (5.5%)</li><li>Wide gross margins (72.4%)</li><li>Cheap on earnings (P/E 14.1)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CUK" target="_blank">CUK</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Carnival plc ADR (Consumer Cyclical) — $41.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.7</b></span>
+      <span class="metric">Fwd P/E <b>11.7</b></span>
+      <span class="metric">ROE <b>25.6%</b></span>
+      <span class="metric">FCF Yield <b>3.8%</b></span>
+      <span class="metric">vs 52w High <b>-7%</b></span>
+      <span class="metric">Short <b>0.7%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (25.6%)</li><li>Wide gross margins (55.5%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 2.28)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CVE" target="_blank">CVE</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Cenovus Energy Inc (Energy) — $42.1B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.5</b></span>
+      <span class="metric">Fwd P/E <b>16.6</b></span>
+      <span class="metric">ROE <b>12.8%</b></span>
+      <span class="metric">FCF Yield <b>6.5%</b></span>
+      <span class="metric">vs 52w High <b>-5%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (6.5%)</li><li>Cheap on earnings (P/E 14.5)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/DAL" target="_blank">DAL</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Delta Air Lines, Inc (Industrials) — $42.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>8.6</b></span>
+      <span class="metric">Fwd P/E <b>7.9</b></span>
+      <span class="metric">ROE <b>27.7%</b></span>
+      <span class="metric">FCF Yield <b>6.9%</b></span>
+      <span class="metric">vs 52w High <b>-14%</b></span>
+      <span class="metric">Short <b>2.5%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (27.7%)</li><li>High free cash flow yield (6.9%)</li><li>Cheap on earnings (P/E 8.6)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.02)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/DECK" target="_blank">DECK</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Deckers Outdoor Corp (Consumer Cyclical) — $17.1B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>16.6</b></span>
+      <span class="metric">Fwd P/E <b>16.0</b></span>
+      <span class="metric">ROE <b>39.7%</b></span>
+      <span class="metric">FCF Yield <b>4.4%</b></span>
+      <span class="metric">vs 52w High <b>-17%</b></span>
+      <span class="metric">Short <b>3.8%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (39.7%)</li><li>Wide gross margins (57.5%)</li><li>Beaten down -17% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/DRD" target="_blank">DRD</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">DRDGold Ltd. ADR (Basic Materials) — $3.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>18.8</b></span>
+      <span class="metric">Fwd P/E <b>57.2</b></span>
+      <span class="metric">ROE <b>34.7%</b></span>
+      <span class="metric">FCF Yield <b>4.1%</b></span>
+      <span class="metric">vs 52w High <b>-1%</b></span>
+      <span class="metric">Short <b>2.8%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (34.7%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/DVN" target="_blank">DVN</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Devon Energy Corp (Energy) — $27.0B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>10.4</b></span>
+      <span class="metric">Fwd P/E <b>10.1</b></span>
+      <span class="metric">ROE <b>17.7%</b></span>
+      <span class="metric">FCF Yield <b>7.9%</b></span>
+      <span class="metric">vs 52w High <b>-6%</b></span>
+      <span class="metric">Short <b>3.5%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (17.7%)</li><li>High free cash flow yield (7.9%)</li><li>Cheap on earnings (P/E 10.4)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/DX" target="_blank">DX</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Dynex Capital, Inc (Real Estate) — $2.8B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>6.9</b></span>
+      <span class="metric">Fwd P/E <b>10.1</b></span>
+      <span class="metric">ROE <b>17.5%</b></span>
+      
+      <span class="metric">vs 52w High <b>-6%</b></span>
+      <span class="metric">Short <b>4.8%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (17.5%)</li><li>Wide gross margins (100.0%)</li><li>Cheap on earnings (P/E 6.9)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 5.65)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EG" target="_blank">EG</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Everest Group Ltd (Financial) — $14.1B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>8.9</b></span>
+      <span class="metric">Fwd P/E <b>5.4</b></span>
+      <span class="metric">ROE <b>10.8%</b></span>
+      <span class="metric">FCF Yield <b>227.6%</b></span>
+      <span class="metric">vs 52w High <b>-9%</b></span>
+      <span class="metric">Short <b>2.5%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (227.6%)</li><li>Cheap on earnings (P/E 8.9)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EOG" target="_blank">EOG</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">EOG Resources, Inc (Energy) — $67.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>13.6</b></span>
+      <span class="metric">Fwd P/E <b>11.2</b></span>
+      <span class="metric">ROE <b>16.8%</b></span>
+      <span class="metric">FCF Yield <b>3.5%</b></span>
+      <span class="metric">vs 52w High <b>-5%</b></span>
+      <span class="metric">Short <b>2.8%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (16.8%)</li><li>Wide gross margins (62.0%)</li><li>Cheap on earnings (P/E 13.6)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EPAM" target="_blank">EPAM</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">EPAM Systems Inc (Technology) — $7.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>20.9</b></span>
+      <span class="metric">Fwd P/E <b>10.1</b></span>
+      <span class="metric">ROE <b>10.3%</b></span>
+      
+      <span class="metric">vs 52w High <b>-37%</b></span>
+      <span class="metric">Short <b>8.3%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Beaten down -37% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 3.91)</li><li>Not cheap (P/E 20.9)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EPD" target="_blank">EPD</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Enterprise Products Partners L P (Energy) — $78.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>13.6</b></span>
+      <span class="metric">Fwd P/E <b>11.8</b></span>
+      <span class="metric">ROE <b>19.7%</b></span>
+      
+      <span class="metric">vs 52w High <b>-3%</b></span>
+      <span class="metric">Short <b>2.9%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (19.7%)</li><li>Cheap on earnings (P/E 13.6)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.13)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EQNR" target="_blank">EQNR</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Equinor ASA ADR (Energy) — $74.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.6</b></span>
+      <span class="metric">Fwd P/E <b>10.6</b></span>
+      <span class="metric">ROE <b>12.2%</b></span>
+      <span class="metric">FCF Yield <b>27.1%</b></span>
+      <span class="metric">vs 52w High <b>-0%</b></span>
+      <span class="metric">Short <b>4.5%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (27.1%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Thin margins (4.8%)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EVR" target="_blank">EVR</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Evercore Inc (Financial) — $11.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>22.1</b></span>
+      <span class="metric">Fwd P/E <b>13.2</b></span>
+      <span class="metric">ROE <b>30.1%</b></span>
+      
+      <span class="metric">vs 52w High <b>-21%</b></span>
+      <span class="metric">Short <b>1.7%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (30.1%)</li><li>Wide gross margins (93.4%)</li><li>Beaten down -21% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 22.1)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/FSM" target="_blank">FSM</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Fortuna Mining Corp (Basic Materials) — $4.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.7</b></span>
+      <span class="metric">Fwd P/E <b>8.6</b></span>
+      <span class="metric">ROE <b>18.0%</b></span>
+      <span class="metric">FCF Yield <b>7.1%</b></span>
+      <span class="metric">vs 52w High <b>-1%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (18.0%)</li><li>High free cash flow yield (7.1%)</li><li>Cheap on earnings (P/E 14.7)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/GFI" target="_blank">GFI</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Gold Fields Ltd ADR (Basic Materials) — $53.0B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.8</b></span>
+      <span class="metric">Fwd P/E <b>11.2</b></span>
+      <span class="metric">ROE <b>51.9%</b></span>
+      <span class="metric">FCF Yield <b>4.8%</b></span>
+      <span class="metric">vs 52w High <b>-5%</b></span>
+      <span class="metric">Short <b>1.1%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (51.9%)</li><li>Wide gross margins (55.3%)</li><li>Cheap on earnings (P/E 14.8)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/GHC" target="_blank">GHC</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Graham Holdings Co (Consumer Defensive) — $4.6B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.9</b></span>
+      <span class="metric">Fwd P/E <b>16.0</b></span>
+      <span class="metric">ROE <b>6.5%</b></span>
+      <span class="metric">FCF Yield <b>5.1%</b></span>
+      <span class="metric">vs 52w High <b>-14%</b></span>
+      <span class="metric">Short <b>5.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>High free cash flow yield (5.1%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/GLOB" target="_blank">GLOB</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Globant S.A (Technology) — $2.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>22.6</b></span>
+      <span class="metric">Fwd P/E <b>7.4</b></span>
+      <span class="metric">ROE <b>5.0%</b></span>
+      
+      <span class="metric">vs 52w High <b>-67%</b></span>
+      <span class="metric">Short <b>16.5%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Beaten down -67% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 22.6)</li><li>High short interest (16.5%) — market skepticism</li><li>Thin margins (4.2%)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/GPOR" target="_blank">GPOR</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Gulfport Energy Corp (Energy) — $4.0B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>10.3</b></span>
+      <span class="metric">Fwd P/E <b>7.1</b></span>
+      <span class="metric">ROE <b>23.9%</b></span>
+      <span class="metric">FCF Yield <b>3.5%</b></span>
+      <span class="metric">vs 52w High <b>-8%</b></span>
+      <span class="metric">Short <b>4.5%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (23.9%)</li><li>Wide gross margins (66.5%)</li><li>Cheap on earnings (P/E 10.3)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/HBM" target="_blank">HBM</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Hudbay Minerals Inc (Basic Materials) — $11.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>19.8</b></span>
+      <span class="metric">Fwd P/E <b>14.0</b></span>
+      <span class="metric">ROE <b>19.2%</b></span>
+      <span class="metric">FCF Yield <b>4.1%</b></span>
+      <span class="metric">vs 52w High <b>-1%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (19.2%)</li><li>Wide gross margins (53.5%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/HDB" target="_blank">HDB</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">HDFC Bank Ltd. ADR (Financial) — $163.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>19.1</b></span>
+      <span class="metric">Fwd P/E <b>23.4</b></span>
+      <span class="metric">ROE <b>14.0%</b></span>
+      
+      <span class="metric">vs 52w High <b>-20%</b></span>
+      <span class="metric">Short <b>0.2%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Beaten down -20% from highs — potential entry</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/HMY" target="_blank">HMY</a>
+      <span class="verdict verdict-watch">Watch</span>
+    </div>
+    <p class="one-liner">Harmony Gold Mining Co Ltd ADR (Basic Materials) — $14.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>18.0</b></span>
+      <span class="metric">Fwd P/E <b>9.4</b></span>
+      <span class="metric">ROE <b>32.5%</b></span>
+      <span class="metric">FCF Yield <b>73.5%</b></span>
+      <span class="metric">vs 52w High <b>-13%</b></span>
+      <span class="metric">Short <b>1.4%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Strong returns on equity (32.5%)</li><li>High free cash flow yield (73.5%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 4.92)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/AUB" target="_blank">AUB</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Atlantic Union Bankshares Corp (Financial) — $5.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>18.2</b></span>
+      <span class="metric">Fwd P/E <b>9.1</b></span>
+      <span class="metric">ROE <b>6.7%</b></span>
+      
+      <span class="metric">vs 52w High <b>-12%</b></span>
+      <span class="metric">Short <b>6.5%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Passed quantitative screen filters</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BAC" target="_blank">BAC</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Bank Of America Corp (Financial) — $363.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>13.0</b></span>
+      <span class="metric">Fwd P/E <b>10.0</b></span>
+      <span class="metric">ROE <b>10.2%</b></span>
+      
+      <span class="metric">vs 52w High <b>-13%</b></span>
+      <span class="metric">Short <b>1.4%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 13.0)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BANC" target="_blank">BANC</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Banc of California Inc (Financial) — $2.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.8</b></span>
+      <span class="metric">Fwd P/E <b>9.0</b></span>
+      <span class="metric">ROE <b>6.5%</b></span>
+      
+      <span class="metric">vs 52w High <b>-15%</b></span>
+      <span class="metric">Short <b>5.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Passed quantitative screen filters</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BBD" target="_blank">BBD</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Banco Bradesco S.A. ADR (Financial) — $43.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>10.2</b></span>
+      <span class="metric">Fwd P/E <b>7.6</b></span>
+      <span class="metric">ROE <b>13.8%</b></span>
+      
+      <span class="metric">vs 52w High <b>-5%</b></span>
+      <span class="metric">Short <b>0.1%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 10.2)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BCS" target="_blank">BCS</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Barclays plc ADR (Financial) — $83.6B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>10.4</b></span>
+      <span class="metric">Fwd P/E <b>6.8</b></span>
+      <span class="metric">ROE <b>9.6%</b></span>
+      
+      <span class="metric">vs 52w High <b>-12%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 10.4)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BG" target="_blank">BG</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Bunge Global SA (Consumer Defensive) — $23.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>22.2</b></span>
+      <span class="metric">Fwd P/E <b>12.1</b></span>
+      <span class="metric">ROE <b>6.0%</b></span>
+      <span class="metric">FCF Yield <b>-30.5%</b></span>
+      <span class="metric">vs 52w High <b>-3%</b></span>
+      <span class="metric">Short <b>3.5%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Passed quantitative screen filters</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Not cheap (P/E 22.2)</li><li>Thin margins (1.2%)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BK" target="_blank">BK</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Bank Of New York Mellon Corp (Financial) — $83.1B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>16.1</b></span>
+      <span class="metric">Fwd P/E <b>12.7</b></span>
+      <span class="metric">ROE <b>12.9%</b></span>
+      
+      <span class="metric">vs 52w High <b>-8%</b></span>
+      <span class="metric">Short <b>1.4%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Passed quantitative screen filters</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BKV" target="_blank">BKV</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">BKV Corp (Energy) — $3.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>16.1</b></span>
+      <span class="metric">Fwd P/E <b>12.6</b></span>
+      <span class="metric">ROE <b>9.7%</b></span>
+      <span class="metric">FCF Yield <b>-10.8%</b></span>
+      <span class="metric">vs 52w High <b>-1%</b></span>
+      <span class="metric">Short <b>10.7%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Wide gross margins (54.7%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>High short interest (10.7%) — market skepticism</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BMO" target="_blank">BMO</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Bank of Montreal (Financial) — $101.6B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>16.7</b></span>
+      <span class="metric">Fwd P/E <b>12.2</b></span>
+      <span class="metric">ROE <b>10.5%</b></span>
+      
+      <span class="metric">vs 52w High <b>-3%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Passed quantitative screen filters</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BNS" target="_blank">BNS</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Bank Of Nova Scotia (Financial) — $94.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.7</b></span>
+      <span class="metric">Fwd P/E <b>11.3</b></span>
+      <span class="metric">ROE <b>10.3%</b></span>
+      
+      <span class="metric">vs 52w High <b>-3%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Passed quantitative screen filters</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/BPOP" target="_blank">BPOP</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Popular Inc (Financial) — $9.0B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>11.0</b></span>
+      <span class="metric">Fwd P/E <b>8.4</b></span>
+      <span class="metric">ROE <b>14.0%</b></span>
+      
+      <span class="metric">vs 52w High <b>-9%</b></span>
+      <span class="metric">Short <b>2.9%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 11.0)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/C" target="_blank">C</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Citigroup Inc (Financial) — $197.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.8</b></span>
+      <span class="metric">Fwd P/E <b>9.1</b></span>
+      <span class="metric">ROE <b>6.8%</b></span>
+      
+      <span class="metric">vs 52w High <b>-12%</b></span>
+      <span class="metric">Short <b>1.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Passed quantitative screen filters</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CB" target="_blank">CB</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Chubb Limited (Financial) — $134.1B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>13.2</b></span>
+      <span class="metric">Fwd P/E <b>11.8</b></span>
+      <span class="metric">ROE <b>14.3%</b></span>
+      
+      <span class="metric">vs 52w High <b>-1%</b></span>
+      <span class="metric">Short <b>0.9%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 13.2)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/CM" target="_blank">CM</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Canadian Imperial Bank Of Commerce (Financial) — $94.1B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.7</b></span>
+      <span class="metric">Fwd P/E <b>12.6</b></span>
+      <span class="metric">ROE <b>14.7%</b></span>
+      
+      <span class="metric">vs 52w High <b>-4%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 14.7)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/COLB" target="_blank">COLB</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Columbia Banking System, Inc (Financial) — $8.5B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>12.6</b></span>
+      <span class="metric">Fwd P/E <b>8.4</b></span>
+      <span class="metric">ROE <b>8.5%</b></span>
+      
+      <span class="metric">vs 52w High <b>-13%</b></span>
+      <span class="metric">Short <b>4.0%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 12.6)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/DB" target="_blank">DB</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Deutsche Bank AG (Financial) — $67.7B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>9.6</b></span>
+      <span class="metric">Fwd P/E <b>6.5</b></span>
+      <span class="metric">ROE <b>8.9%</b></span>
+      
+      <span class="metric">vs 52w High <b>-12%</b></span>
+      <span class="metric">Short <b>0.3%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 9.6)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/DHI" target="_blank">DHI</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">D.R. Horton Inc (Consumer Cyclical) — $46.7B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.6</b></span>
+      <span class="metric">Fwd P/E <b>13.0</b></span>
+      <span class="metric">ROE <b>13.5%</b></span>
+      <span class="metric">FCF Yield <b>-1.2%</b></span>
+      <span class="metric">vs 52w High <b>-13%</b></span>
+      <span class="metric">Short <b>7.1%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 14.6)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EGO" target="_blank">EGO</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Eldorado Gold Corp (Basic Materials) — $9.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>18.6</b></span>
+      <span class="metric">Fwd P/E <b>7.0</b></span>
+      <span class="metric">ROE <b>12.8%</b></span>
+      <span class="metric">FCF Yield <b>0.7%</b></span>
+      <span class="metric">vs 52w High <b>-9%</b></span>
+      
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Wide gross margins (61.4%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EQT" target="_blank">EQT</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">EQT Corp (Energy) — $38.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>18.5</b></span>
+      <span class="metric">Fwd P/E <b>13.2</b></span>
+      <span class="metric">ROE <b>9.0%</b></span>
+      <span class="metric">FCF Yield <b>4.8%</b></span>
+      <span class="metric">vs 52w High <b>-1%</b></span>
+      <span class="metric">Short <b>3.6%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Wide gross margins (78.6%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/ET" target="_blank">ET</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Energy Transfer LP (Energy) — $64.8B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>15.6</b></span>
+      <span class="metric">Fwd P/E <b>11.7</b></span>
+      <span class="metric">ROE <b>11.9%</b></span>
+      <span class="metric">FCF Yield <b>3.4%</b></span>
+      <span class="metric">vs 52w High <b>-3%</b></span>
+      <span class="metric">Short <b>0.9%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Passed quantitative screen filters</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 1.42)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/EXE" target="_blank">EXE</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Expand Energy Corp (Energy) — $25.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.3</b></span>
+      <span class="metric">Fwd P/E <b>11.6</b></span>
+      <span class="metric">ROE <b>10.1%</b></span>
+      <span class="metric">FCF Yield <b>4.5%</b></span>
+      <span class="metric">vs 52w High <b>-15%</b></span>
+      <span class="metric">Short <b>3.5%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 14.3)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/FCNCA" target="_blank">FCNCA</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">First Citizens Bancshares, Inc (NC) (Financial) — $23.3B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>11.4</b></span>
+      <span class="metric">Fwd P/E <b>9.5</b></span>
+      <span class="metric">ROE <b>9.9%</b></span>
+      
+      <span class="metric">vs 52w High <b>-15%</b></span>
+      <span class="metric">Short <b>5.7%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 11.4)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/FITB" target="_blank">FITB</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Fifth Third Bancorp (Financial) — $44.5B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>14.0</b></span>
+      <span class="metric">Fwd P/E <b>10.0</b></span>
+      <span class="metric">ROE <b>12.2%</b></span>
+      
+      <span class="metric">vs 52w High <b>-11%</b></span>
+      <span class="metric">Short <b>5.4%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 14.0)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/GMED" target="_blank">GMED</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Globus Medical Inc (Healthcare) — $12.9B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>24.3</b></span>
+      <span class="metric">Fwd P/E <b>19.4</b></span>
+      <span class="metric">ROE <b>12.3%</b></span>
+      <span class="metric">FCF Yield <b>2.5%</b></span>
+      <span class="metric">vs 52w High <b>-6%</b></span>
+      <span class="metric">Short <b>4.7%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Wide gross margins (68.1%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 2.61)</li><li>Not cheap (P/E 24.3)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/GS" target="_blank">GS</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Goldman Sachs Group, Inc (Financial) — $260.2B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>16.8</b></span>
+      <span class="metric">Fwd P/E <b>13.2</b></span>
+      <span class="metric">ROE <b>13.9%</b></span>
+      
+      <span class="metric">vs 52w High <b>-13%</b></span>
+      <span class="metric">Short <b>2.0%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Wide gross margins (82.9%)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>Elevated debt (D/E 5.96)</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/HBAN" target="_blank">HBAN</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Huntington Bancshares, Inc (Financial) — $34.1B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>12.1</b></span>
+      <span class="metric">Fwd P/E <b>8.8</b></span>
+      <span class="metric">ROE <b>10.1%</b></span>
+      
+      <span class="metric">vs 52w High <b>-14%</b></span>
+      <span class="metric">Short <b>4.0%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 12.1)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+  <div class="stock-card">
+    <div class="stock-header">
+      <a class="ticker" href="https://finance.yahoo.com/quote/HOMB" target="_blank">HOMB</a>
+      <span class="verdict verdict-pass">Pass</span>
+    </div>
+    <p class="one-liner">Home Bancshares Inc (Financial) — $5.4B</p>
+    <div class="metrics">
+      <span class="metric">P/E <b>11.4</b></span>
+      <span class="metric">Fwd P/E <b>10.4</b></span>
+      <span class="metric">ROE <b>11.5%</b></span>
+      
+      <span class="metric">vs 52w High <b>-11%</b></span>
+      <span class="metric">Short <b>6.1%</b></span>
+    </div>
+    <div class="cases">
+      <div class="case bull"><h4>🟢 Bull</h4><ul><li>Cheap on earnings (P/E 11.4)</li></ul></div>
+      <div class="case bear"><h4>🔴 Bear</h4><ul><li>No major red flags identified</li></ul></div>
+    </div>
+    
+  </div>
+  
+
+  <footer>Generated by Stock Research Tool · Data from Finviz, Dataroma, Yahoo Finance</footer>
+</body>
+</html>
