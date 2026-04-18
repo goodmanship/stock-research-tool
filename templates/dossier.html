@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }}</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #e6edf3; --muted: #8b949e; --green: #3fb950; --yellow: #d29922; --red: #f85149; --blue: #58a6ff; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 16px; max-width: 920px; margin: 0 auto; }
+  a { color: var(--blue); }
+  .back { display: inline-block; margin-bottom: 16px; text-decoration: none; }
+  .hero, .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin-bottom: 12px; }
+  .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; margin-right: 8px; }
+  .strong-buy { background: var(--green); color: #000; }
+  .buy-now { background: #238636; color: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+  .metric { background: #0f141b; border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+  .metric-label { color: var(--muted); font-size: 0.78rem; margin-bottom: 4px; }
+  .metric-value { font-weight: 700; }
+  h2 { font-size: 1rem; margin-bottom: 10px; }
+  p, li { line-height: 1.45; }
+  ul { margin: 0; padding-left: 18px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+  <a class="back" href="../index.html">← Back to stock research</a>
+
+  <div class="hero">
+    <h1>{{ stock.ticker }} · {{ stock.name }}</h1>
+    <div class="sub">{{ stock.sector }} · {{ stock.industry }}{% if stock.hq %} · {{ stock.hq }}{% endif %}</div>
+    <span class="pill strong-buy">{{ stock.verdict }}</span>
+    <span class="pill buy-now">{{ stock.timing_label|title }}</span>
+    <p style="margin-top:12px;">{{ stock.one_liner }}</p>
+    {% if stock.website %}<p><a href="{{ stock.website }}" target="_blank">Company website</a></p>{% endif %}
+  </div>
+
+  <div class="card">
+    <h2>Executive summary</h2>
+    {% for paragraph in stock.summary_paragraphs %}
+    <p>{{ paragraph }}</p>
+    {% endfor %}
+  </div>
+
+  <div class="card">
+    <h2>Business model and why it may be working</h2>
+    <ul>
+      {% for item in stock.business_model %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Key metrics</h2>
+    <div class="grid">
+      <div class="metric"><div class="metric-label">Market cap</div><div class="metric-value">{{ stock.market_cap }}</div></div>
+      <div class="metric"><div class="metric-label">Price</div><div class="metric-value">${{ '%.2f'|format(stock.price) }}</div></div>
+      <div class="metric"><div class="metric-label">P/E</div><div class="metric-value">{{ '%.1f'|format(stock.pe) if stock.pe else 'n/a' }}</div></div>
+      <div class="metric"><div class="metric-label">Forward P/E</div><div class="metric-value">{{ '%.1f'|format(stock.forward_pe) if stock.forward_pe else 'n/a' }}</div></div>
+      <div class="metric"><div class="metric-label">ROE</div><div class="metric-value">{{ stock.roe }}</div></div>
+      <div class="metric"><div class="metric-label">Gross margin</div><div class="metric-value">{{ stock.gross_margin }}</div></div>
+      <div class="metric"><div class="metric-label">Net margin</div><div class="metric-value">{{ stock.net_margin }}</div></div>
+      <div class="metric"><div class="metric-label">FCF yield</div><div class="metric-value">{{ stock.fcf_yield }}</div></div>
+      <div class="metric"><div class="metric-label">Revenue growth</div><div class="metric-value">{{ stock.revenue_growth }}</div></div>
+      <div class="metric"><div class="metric-label">Earnings growth</div><div class="metric-value">{{ stock.earnings_growth }}</div></div>
+      <div class="metric"><div class="metric-label">Institutional ownership</div><div class="metric-value">{{ stock.institutional_pct }}</div></div>
+      <div class="metric"><div class="metric-label">From 52-week high</div><div class="metric-value">{{ stock.pct_from_52w_high }}</div></div>
+      <div class="metric"><div class="metric-label">Short float</div><div class="metric-value">{{ stock.short_float }}</div></div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="card">
+      <h2>Fair assessment, what looks good</h2>
+      <ul>
+        {% for item in stock.assessment.positives %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Fair assessment, what to be careful about</h2>
+      <ul>
+        {% for item in stock.assessment.cautions %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Investor context</h2>
+    {% if stock.investors %}
+      {% for investor in stock.investors %}
+      <p><strong>{{ investor.name }}</strong> · {{ investor.status }}</p>
+      <p class="muted">Cost basis: {{ investor.cost_basis }}</p>
+      <p>{{ investor.note }}</p>
+      {% endfor %}
+    {% else %}
+      <p class="muted">No tracked superinvestor holder surfaced in the current pipeline.</p>
+    {% endif %}
+  </div>
+</body>
+</html>
