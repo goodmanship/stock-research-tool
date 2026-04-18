@@ -37,7 +37,7 @@
     <span class="pill strong-buy">{{ stock.verdict }}</span>
     <span class="pill buy-now">{{ stock.timing_label|title }}</span>
     <p style="margin-top:12px;">{{ stock.one_liner }}</p>
-    {% if stock.website %}<p><a href="{{ stock.website }}" target="_blank">Company website</a></p>{% endif %}
+    <p><a href="{{ stock.yahoo_href }}" target="_blank">Yahoo Finance</a>{% if stock.ir_href %} · <a href="{{ stock.ir_href }}" target="_blank">Investor relations</a>{% endif %}</p>
   </div>
 
   <div class="card">

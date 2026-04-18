@@ -210,16 +210,39 @@ def investor_context(stock: Stock) -> list[dict]:
     return items
 
 
+def guess_ir_link(website: str | None) -> str | None:
+    if not website:
+        return None
+    base = website.rstrip("/")
+    candidates = [
+        f"{base}/investors",
+        f"{base}/investor-relations",
+        f"{base}/investorrelations",
+        f"{base}/ir",
+    ]
+    for url in candidates:
+        try:
+            resp = httpx.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=10, follow_redirects=True)
+            if resp.status_code < 400:
+                return str(resp.url)
+        except Exception:
+            continue
+    return None
+
+
 def build_dossier_payload(stock: Stock) -> dict:
     info = yf.Ticker(stock.ticker).info
     assessment = fair_assessment(stock, info)
     slug = slugify(stock.ticker)
+    website = info.get("website")
 
     return {
         "ticker": stock.ticker,
         "slug": slug,
         "name": info.get("longName") or stock.name,
-        "website": info.get("website"),
+        "website": website,
+        "yahoo_href": f"https://finance.yahoo.com/quote/{stock.ticker}",
+        "ir_href": guess_ir_link(website),
         "sector": stock.sector,
         "industry": stock.industry,
         "hq": ", ".join([x for x in [info.get("city"), info.get("state"), info.get("country")] if x]),
