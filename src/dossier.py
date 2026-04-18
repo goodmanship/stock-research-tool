@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+import httpx
 import yfinance as yf
 from jinja2 import Environment, FileSystemLoader
 
@@ -106,16 +107,105 @@ def fair_assessment(stock: Stock, info: dict) -> dict:
     return {"positives": positives[:4], "cautions": cautions[:4]}
 
 
+WW_FILER_SLUGS = {
+    "Seth Klarman": "baupost-group-llc-ma",
+}
+
+
+def quarter_bounds(quarter_end: str) -> tuple[str, str]:
+    year, month, day = map(int, quarter_end.split("-"))
+    if month == 3:
+        return (f"{year}-01-01", quarter_end)
+    if month == 6:
+        return (f"{year}-04-01", quarter_end)
+    if month == 9:
+        return (f"{year}-07-01", quarter_end)
+    return (f"{year}-10-01", quarter_end)
+
+
+def estimate_entry_reference(ticker: str, quarter_end: str) -> dict | None:
+    start, end = quarter_bounds(quarter_end)
+    hist = yf.Ticker(ticker).history(start=start, end=end, auto_adjust=False)
+    if hist.empty or len(hist) < 8:
+        return None
+
+    low = float(hist["Low"].min())
+    high = float(hist["High"].max())
+    close = float(hist["Close"].iloc[-1])
+    avg_close = float(hist["Close"].mean())
+    spread_pct = ((high - low) / avg_close) * 100 if avg_close else 999
+
+    if spread_pct > 18:
+        return None
+
+    confidence = "moderate" if spread_pct <= 10 else "cautious"
+    return {
+        "quarter_end": quarter_end,
+        "range_low": low,
+        "range_high": high,
+        "avg_close": avg_close,
+        "close": close,
+        "spread_pct": spread_pct,
+        "confidence": confidence,
+    }
+
+
+def get_whalewisdom_entry_hint(stock: Stock, investor_name: str) -> dict | None:
+    slug = WW_FILER_SLUGS.get(investor_name)
+    if not slug:
+        return None
+    try:
+        url = f"https://whalewisdom.com/filer/{slug}"
+        html = httpx.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=30).text
+        if stock.ticker not in html:
+            return None
+        quarter_match = re.search(r'Q4 2025|Q3 2025|Q2 2025|Q1 2025', html)
+        if not quarter_match:
+            return None
+        label = quarter_match.group(0)
+        quarter_map = {
+            "Q1 2025": "2025-03-31",
+            "Q2 2025": "2025-06-30",
+            "Q3 2025": "2025-09-30",
+            "Q4 2025": "2025-12-31",
+        }
+        quarter_end = quarter_map[label]
+        estimate = estimate_entry_reference(stock.ticker, quarter_end)
+        return {
+            "first_reported_quarter": label,
+            "entry_estimate": estimate,
+        }
+    except Exception:
+        return None
+
+
 def investor_context(stock: Stock) -> list[dict]:
     if not stock.superinvestor_holders:
         return []
     items = []
     for name in stock.superinvestor_holders:
+        ww = get_whalewisdom_entry_hint(stock, name)
+        entry = ww.get("entry_estimate") if ww else None
+        if entry:
+            cost_basis = f"Estimated entry range ${entry['range_low']:.2f} to ${entry['range_high']:.2f} ({entry['confidence']} confidence)"
+            note = (
+                f"First reported quarter appears to be {ww['first_reported_quarter']}. "
+                f"This estimate uses that quarter's trading range and is only shown because the quarter was relatively stable, with roughly {entry['spread_pct']:.1f}% range spread."
+            )
+        elif ww:
+            cost_basis = "No reliable entry estimate"
+            note = (
+                f"First reported quarter appears to be {ww['first_reported_quarter']}, but the price action in that quarter was too wide or history was incomplete, so I did not show a number."
+            )
+        else:
+            cost_basis = "No reliable entry estimate"
+            note = "We know this investor currently shows up in the tracked holdings set, but the current pipeline cannot estimate entry price with enough confidence."
+
         items.append({
             "name": name,
             "status": "Tracked holder",
-            "cost_basis": "Unavailable from current data source",
-            "note": "We know this investor currently shows up in the tracked holdings set, but not the exact purchase price from the pipeline's current sources.",
+            "cost_basis": cost_basis,
+            "note": note,
         })
     return items
 

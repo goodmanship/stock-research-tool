@@ -100,7 +100,7 @@
     {% if stock.investors %}
       {% for investor in stock.investors %}
       <p><strong>{{ investor.name }}</strong> · {{ investor.status }}</p>
-      <p class="muted">Cost basis: {{ investor.cost_basis }}</p>
+      <p class="muted">Entry estimate: {{ investor.cost_basis }}</p>
       <p>{{ investor.note }}</p>
       {% endfor %}
     {% else %}
