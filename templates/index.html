@@ -20,6 +20,7 @@
   a.stock-card-link:hover .stock-card { transform: translateY(-1px); }
   .stock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .ticker { font-size: 1.1em; font-weight: 700; color: var(--blue); text-decoration: none; }
+  .ticker.plain { text-decoration: none; }
   .verdict { font-size: 0.8em; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
   .verdict-strong-buy { background: var(--green); color: #000; }
   .verdict-buy { background: #238636; color: #fff; }
@@ -56,7 +57,11 @@
   {% if stock.dossier_href %}<a class="stock-card-link" href="{{ stock.dossier_href }}">{% endif %}
   <div class="stock-card">
     <div class="stock-header">
+      {% if stock.dossier_href %}
+      <span class="ticker plain">{{ stock.ticker }}</span>
+      {% else %}
       <a class="ticker" href="https://finance.yahoo.com/quote/{{ stock.ticker }}" target="_blank">{{ stock.ticker }}</a>
+      {% endif %}
       <span class="verdict verdict-{{ stock.verdict_class }}">{{ stock.verdict }}</span>
     </div>
     <p class="one-liner">{{ stock.one_liner }}</p>
