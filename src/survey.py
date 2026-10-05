@@ -1,6 +1,8 @@
 """Stage 2: Smart money cross-reference (Dataroma superinvestor holdings)."""
 
 import httpx
+import json
+import re
 from bs4 import BeautifulSoup
 from .models import Stock, load_stocks, save_stocks
 from .config import DATA_DIR
@@ -21,15 +23,20 @@ SUPERINVESTORS = {
     "AC": "Chuck Akre",
     "MKL": "Tom Gayner",
     # Bonus picks
-    "SEQUX": "Ruane Cunniff (Sequoia)",
+    "RC": "Ruane Cunniff",
     "GLRE": "David Einhorn",
     "ic": "Carl Icahn",
     "tp": "Daniel Loeb",
+    "HH": "Duan Yongping",
+    "PC": "Norbert Lou",
+    "GA": "Greenhaven Associates",
 }
 
+PREFERRED_INVESTORS = {"Warren Buffett", "Mohnish Pabrai", "Li Lu", "Seth Klarman"}
 
-def get_manager_holdings(fund_code: str) -> list[str]:
-    """Get list of tickers held by a manager."""
+
+def get_manager_holdings(fund_code: str) -> list[dict]:
+    """Get current holdings, reported activity, weight, and filing quarter."""
     tickers = []
     try:
         url = f"https://www.dataroma.com/m/holdings.php?m={fund_code}"
@@ -39,37 +46,42 @@ def get_manager_holdings(fund_code: str) -> list[str]:
 
         table = soup.find("table", id="grid")
         if not table:
-            return tickers
+            raise ValueError("Dataroma holdings table missing")
+
+        period_match = re.search(r"Q[1-4] 20\d{2}", soup.get_text(" ", strip=True))
+        period = period_match.group(0) if period_match else "Unknown period"
 
         for row in table.find_all("tr")[1:]:
             cells = row.find_all("td")
-            if len(cells) >= 2:
+            if len(cells) >= 4:
                 stock_cell = cells[1].get_text(strip=True)
                 # Format: "AAPL- Apple Inc."
-                ticker = stock_cell.split("-")[0].strip()
-                if ticker and ticker.isalpha():
-                    tickers.append(ticker.upper())
+                link = cells[1].find("a", href=re.compile(r"stock\.php\?sym="))
+                ticker = link["href"].split("sym=")[-1] if link else stock_cell.split("-")[0].strip()
+                if re.fullmatch(r"[A-Z0-9]+(?:[.-][A-Z0-9]+)*", ticker):
+                    tickers.append({"ticker": ticker.replace(".", "-"), "activity": cells[3].get_text(" ", strip=True) or "Hold", "portfolio_percent": float(cells[2].get_text(strip=True)), "period": period, "source_url": url})
     except Exception as e:
-        print(f"   ⚠️  Failed to fetch {fund_code}: {e}")
+        raise RuntimeError(f"Failed to fetch {fund_code}: {e}") from e
 
     return tickers
 
 
-def get_all_superinvestor_holdings() -> dict[str, list[str]]:
+def get_all_superinvestor_holdings() -> dict[str, list[dict]]:
     """Fetch holdings for all tracked superinvestors.
 
-    Returns: {ticker: [investor_name, ...]}
+    Returns: {ticker: [holding details, ...]}
     """
-    holdings: dict[str, list[str]] = {}
+    holdings: dict[str, list[dict]] = {}
 
     for fund_code, name in SUPERINVESTORS.items():
         print(f"   📥 {name}...", end="", flush=True)
         tickers = get_manager_holdings(fund_code)
         print(f" {len(tickers)} holdings")
 
-        for ticker in tickers:
-            holdings.setdefault(ticker, []).append(name)
+        for holding in tickers:
+            holdings.setdefault(holding["ticker"], []).append({"investor": name, **holding})
 
+    (DATA_DIR / "investor_holdings.json").write_text(json.dumps(holdings, indent=2))
     return holdings
 
 
@@ -78,10 +90,16 @@ def enrich_with_smart_money(stocks: list[Stock]) -> list[Stock]:
     holdings = get_all_superinvestor_holdings()
 
     for stock in stocks:
-        investors = holdings.get(stock.ticker, [])
-        stock.superinvestor_holders = investors
-        # Scoring: each holder = 2 points, diminishing
-        stock.smart_money_score = min(len(investors) * 2.0, 10.0)
+        activity = holdings.get(stock.ticker, [])
+        stock.investor_activity = activity
+        stock.superinvestor_holders = [item["investor"] for item in activity]
+        # ponytail: latest-quarter snapshot, persist quarterly histories for multi-quarter trends.
+        stock.smart_money_score = min(sum(
+            (2 if item["investor"] in PREFERRED_INVESTORS else 1)
+            * (3 if item["activity"].startswith("Buy") else 2 if item["activity"].startswith("Add") else 0.5 if item["activity"].startswith("Reduce") else 1)
+            for item in activity
+            if item["portfolio_percent"] >= 0.1
+        ), 10.0)
 
     stocks.sort(key=lambda s: s.smart_money_score, reverse=True)
     return stocks

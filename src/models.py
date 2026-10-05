@@ -29,6 +29,9 @@ class Stock:
 
     # Smart money (Stage 2)
     superinvestor_holders: list[str] = field(default_factory=list)
+    investor_activity: list[dict] = field(default_factory=list)
+    data_notes: list[str] = field(default_factory=list)
+    market_data_at: str = ""
     smart_money_score: float = 0
     insider_buy_count: int = 0
     insider_sell_count: int = 0

@@ -3,7 +3,7 @@
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 from .models import load_stocks
-from .config import DATA_DIR, DOCS_DIR, TEMPLATES_DIR, SITE_TITLE
+from .config import DATA_DIR, DOCS_DIR, TEMPLATES_DIR, SITE_TITLE, RESEARCH_TICKERS
 from .dossier import build as build_dossiers, slugify
 
 
@@ -11,7 +11,7 @@ def build():
     print("🌐 Building static site...")
     stocks = load_stocks(DATA_DIR / "04_final.json")
 
-    env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)))
+    env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=True, trim_blocks=True, lstrip_blocks=True)
     template = env.get_template("index.html")
 
     # Prep template data
@@ -23,7 +23,7 @@ def build():
     for s in stocks:
         d = s.to_dict()
         d["verdict_class"] = s.verdict.lower().replace(" ", "-")
-        d["dossier_href"] = f"stocks/{slugify(s.ticker)}.html" if s.verdict == "Strong Buy" else None
+        d["dossier_href"] = f"stocks/{slugify(s.ticker)}.html" if s.verdict == "Strong Buy" or s.ticker in RESEARCH_TICKERS or (DOCS_DIR / "stocks" / f"{slugify(s.ticker)}.html").exists() else None
         stock_data.append(d)
 
     html = template.render(
@@ -38,7 +38,7 @@ def build():
     )
 
     out = DOCS_DIR / "index.html"
-    out.write_text(html)
+    out.write_text("\n".join(line.rstrip() for line in html.splitlines()) + "\n")
     dossier_files = build_dossiers()
     print(f"   ✅ Written to {out}")
     print(f"   ✅ Written {len(dossier_files)} dossier pages")

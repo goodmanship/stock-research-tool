@@ -6,6 +6,9 @@ from .config import DATA_DIR
 
 def generate_bull_case(s: Stock) -> list[str]:
     points = []
+    buyers = [item["investor"] for item in s.investor_activity if item["activity"].startswith(("Buy", "Add"))]
+    if buyers:
+        points.append(f"Latest reported buys/adds: {', '.join(buyers[:3])}")
     if s.roe and s.roe > 15:
         points.append(f"Strong returns on equity ({s.roe:.1f}%)")
     if s.revenue_growth and s.revenue_growth > 15:
@@ -28,6 +31,12 @@ def generate_bull_case(s: Stock) -> list[str]:
 
 def generate_bear_case(s: Stock) -> list[str]:
     risks = []
+    risks.extend(s.data_notes)
+    reducers = [item["investor"] for item in s.investor_activity if item["activity"].startswith("Reduce")]
+    if reducers:
+        risks.append(f"Latest reported trims: {', '.join(reducers[:3])}")
+    if s.fcf_yield is not None and s.fcf_yield < 0:
+        risks.append(f"Negative free cash flow yield ({s.fcf_yield:.1f}%)")
     if s.debt_equity and s.debt_equity > 1:
         risks.append(f"Elevated debt (D/E {s.debt_equity:.2f})")
     if s.pe and s.pe > 20:
@@ -42,6 +51,8 @@ def generate_bear_case(s: Stock) -> list[str]:
 
 
 def assign_verdict(s: Stock) -> str:
+    if s.timing_label == "no data":
+        return "Pass"
     score = 0
     if s.smart_money_score >= 4:
         score += 2

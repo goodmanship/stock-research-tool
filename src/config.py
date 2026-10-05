@@ -46,3 +46,4 @@ SHORT_INTEREST_MIN = 5.0   # Min short float % for contrarian signal
 # --- Output ---
 SITE_TITLE = "Stock Research"
 MAX_CANDIDATES = 100       # Cap screener output
+RESEARCH_TICKERS = {"GOOGL", "PDD", "LEN", "GPC", "HCC", "ABNB", "AXP", "C", "CI", "MRP", "MU", "NFLX", "AERO", "CPRX"}

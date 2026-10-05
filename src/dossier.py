@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 import re
+import json
 from pathlib import Path
 
 import httpx
 import yfinance as yf
 from jinja2 import Environment, FileSystemLoader
 
-from .config import DATA_DIR, DOCS_DIR, TEMPLATES_DIR
+from .config import DATA_DIR, DOCS_DIR, TEMPLATES_DIR, RESEARCH_TICKERS
 from .models import Stock, load_stocks
 
 
@@ -180,6 +181,8 @@ def get_whalewisdom_entry_hint(stock: Stock, investor_name: str) -> dict | None:
 
 
 def investor_context(stock: Stock) -> list[dict]:
+    if stock.investor_activity:
+        return [{"name": item["investor"], "status": f"{item['activity']} · {item['portfolio_percent']:.2f}% of reported portfolio", "cost_basis": "Not disclosed in 13F filings", "note": f"{item['period']} holdings snapshot. Source: {item['source_url']}"} for item in stock.investor_activity]
     if not stock.superinvestor_holders:
         return []
     items = []
@@ -231,7 +234,7 @@ def guess_ir_link(website: str | None) -> str | None:
 
 
 def build_dossier_payload(stock: Stock) -> dict:
-    info = yf.Ticker(stock.ticker).info
+    info = json.loads((DATA_DIR / f"{stock.ticker}_info.json").read_text())
     assessment = fair_assessment(stock, info)
     slug = slugify(stock.ticker)
     website = info.get("website")
@@ -249,6 +252,8 @@ def build_dossier_payload(stock: Stock) -> dict:
         "employees": info.get("fullTimeEmployees"),
         "market_cap": fmt_money(stock.market_cap or info.get("marketCap")),
         "price": stock.price,
+        "market_data_at": stock.market_data_at,
+        "data_notes": stock.data_notes,
         "forward_pe": stock.forward_pe,
         "pe": stock.pe,
         "roe": fmt_pct(stock.roe),
@@ -272,19 +277,19 @@ def build_dossier_payload(stock: Stock) -> dict:
 
 def build() -> list[Path]:
     stocks = load_stocks(DATA_DIR / "04_final.json")
-    strong_buys = [s for s in stocks if s.verdict == "Strong Buy"]
+    dossier_stocks = [s for s in stocks if s.verdict == "Strong Buy" or s.ticker in RESEARCH_TICKERS or (DOCS_DIR / "stocks" / f"{slugify(s.ticker)}.html").exists()]
 
-    env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)))
+    env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=True, trim_blocks=True, lstrip_blocks=True)
     template = env.get_template("dossier.html")
     out_dir = DOCS_DIR / "stocks"
     out_dir.mkdir(exist_ok=True)
 
     written = []
-    for stock in strong_buys:
+    for stock in dossier_stocks:
         payload = build_dossier_payload(stock)
         html = template.render(stock=payload, title=f"{stock.ticker} dossier")
         out = out_dir / f"{payload['slug']}.html"
-        out.write_text(html)
+        out.write_text("\n".join(line.rstrip() for line in html.splitlines()) + "\n")
         written.append(out)
     return written
 

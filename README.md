@@ -6,6 +6,26 @@ Output: static HTML site deployed to GitHub Pages.
 
 ## Quick Start
 
+Refresh the existing published watchlist plus the investor-sourced research list:
+
+```bash
+uv sync
+uv run python -m src.refresh
+uv run python test_refresh.py
+python -m http.server 8080 -d docs/
+```
+
+Investor activity includes the filing quarter, portfolio weight, and reported
+buy/add/hold/reduce status. Buffett/Berkshire, Pabrai, Li Lu, and Klarman receive
+double weight; new positions and additions score above unchanged holdings,
+and trims score below them. Positions below 0.1% of a manager's portfolio are
+displayed but do not score. This is a latest-quarter accumulation snapshot,
+not a multi-quarter trend or an estimate of investor cost basis.
+Foreign-currency FCF yields and conventional FCF yields for banks, insurers,
+and REITs are omitted. Inconsistent P/E share units and FCF above operating
+cash flow are flagged rather than ranked as bargains. Raw data is saved locally in `data/`.
+The refresh stops before rebuilding the site if any market quote is missing.
+
 ```bash
 # Install dependencies
 pip install -r requirements.txt

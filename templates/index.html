@@ -45,6 +45,8 @@
 <body>
   <h1>📊 {{ title }}</h1>
   <p class="subtitle">Last updated: {{ updated }} · {{ total }} stocks analyzed</p>
+  <p class="subtitle"><a class="ticker" href="research-2026-10-05.html">October 5 research notes: five new ideas + existing picks →</a></p>
+  <p class="subtitle">Rankings are screening signals. Investor activity comes from lagged quarterly filings; Buy/Add means reported share accumulation, not a live trade or known cost basis.</p>
 
   <div class="stats">
     <div class="stat"><div class="stat-num" style="color:var(--green)">{{ strong_buy }}</div><div class="stat-label">Strong Buy</div></div>
@@ -66,6 +68,7 @@
     </div>
     <p class="one-liner">{{ stock.one_liner }}</p>
     <div class="metrics">
+      {% if stock.price %}<span class="metric">Price <b>${{ "%.2f"|format(stock.price) }}</b></span>{% endif %}
       {% if stock.pe %}<span class="metric">P/E <b>{{ "%.1f"|format(stock.pe) }}</b></span>{% endif %}
       {% if stock.forward_pe %}<span class="metric">Fwd P/E <b>{{ "%.1f"|format(stock.forward_pe) }}</b></span>{% endif %}
       {% if stock.roe %}<span class="metric">ROE <b>{{ "%.1f"|format(stock.roe) }}%</b></span>{% endif %}
@@ -80,6 +83,10 @@
     {% if stock.superinvestor_holders %}
     <p class="smart-money">🧠 Smart money: <b>{{ stock.superinvestor_holders | join(", ") }}</b></p>
     {% endif %}
+    {% if stock.investor_activity %}
+    <p class="smart-money">{% for item in stock.investor_activity %}{{ item.investor }}: <b>{{ item.activity }}</b> ({{ item.period }}; {{ "%.2f"|format(item.portfolio_percent) }}% portfolio){% if not loop.last %} · {% endif %}{% endfor %}</p>
+    {% endif %}
+    {% if stock.market_data_at %}<p class="smart-money">Quote timestamp: {{ stock.market_data_at }}</p>{% endif %}
     {% if stock.dossier_href %}
     <p class="smart-money">Open dossier →</p>
     {% endif %}
