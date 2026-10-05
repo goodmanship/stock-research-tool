@@ -1,0 +1,188 @@
+{
+  "reviewed": "2026-10-05",
+  "stocks": {
+    "GOOGL": {
+      "tier": "Research",
+      "title": "Alphabet (GOOG / GOOGL): the quality anchor",
+      "evidence": "Documented investor rationale, with our business interpretation",
+      "investor_thesis": "Buffett told CNBC in July 2026 that he initiated the position and emphasized durable high returns on capital and real distributable cash. He also explicitly acknowledged the enormous AI capital-spending burden. This documents his framework, not a disclosed price target or a full search/AI valuation model. Li Lu's two share classes total 47.94% of his Q2 disclosed portfolio; that is one underlying business, not two investments.",
+      "thesis": "Search intent, YouTube distribution and Cloud can support durable cash generation. Keep Alphabet as the large-company quality benchmark; GOOG and GOOGL have the same underlying economics, with different voting rights and slightly different quotes.",
+      "valuation": "At the reviewed snapshot: 22.9x analyst forward earnings; vendor FCF yield only 0.54%. Annual-statement FCF was $73.3B in 2025, or 1.73% of today's market cap; the 2023–25 average gives 1.70%. Subtracting 2025 stock compensation gives a rough 1.14% owner-cash proxy. None establishes a cash-flow bargain. A 25% cut to forecast EPS raises forward P/E to 30.6x.",
+      "risk": "AI can weaken search monetization while requiring more capital; antitrust remedies and distribution costs can erode the moat. High historical ROE does not establish the return on the next dollar spent on AI.",
+      "gate": "Estimate sustainable cash after maintenance and growth capex, then test whether incremental AI/Cloud returns justify the current valuation. Priority business research, not an unconditional buy.",
+      "ir_url": "https://abc.xyz/investor/",
+      "sources": [
+        {"label": "Buffett's July 15 CNBC interview", "url": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html"},
+        {"label": "Interview transcript reproduction", "url": "https://steadycompounding.com/transcript/warren-buffett-cnbc-interview-july-2026/"},
+        {"label": "Li Lu Q2 holdings", "url": "https://www.dataroma.com/m/holdings.php?m=HC"},
+        {"label": "Alphabet annual reports", "url": "https://abc.xyz/investor/annual-reports/"}
+      ]
+    },
+    "CI": {
+      "tier": "Research",
+      "title": "Cigna: strongest existing cash/earnings value lead",
+      "evidence": "Our thesis; tracked holding, no verified investor explanation found",
+      "investor_thesis": "Greenlight reports an unchanged 0.62% position in Q2 2026. That supports ownership only; we did not verify a public Einhorn explanation for this specific holding and do not attribute the thesis below to him.",
+      "thesis": "Recurring employer health coverage and Evernorth pharmacy/specialty services support cash generation and share repurchases. The opportunity is a low earnings multiple if regulatory and medical-cost pressure prove manageable.",
+      "valuation": "8.1x analyst forward earnings and 11.2% vendor FCF yield. Annual-statement 2025 operating cash minus capex was $8.39B, a historical 11.7% yield at today's market cap; the 2023–25 average gives 12.9%. These cash figures are not necessarily distributable parent-company cash because insurance subsidiaries require capital. A 25% forecast EPS haircut gives 10.8x.",
+      "risk": "PBM reform can change the economics, not just sentiment. Medical costs, contract repricing and insurer capital requirements matter. Q2 pharmacy-benefit pretax adjusted income fell despite revenue growth.",
+      "gate": "Separate Evernorth and insurance earnings, stress PBM fee/rebate changes and medical costs, and verify cash that can reach shareholders. A policy-sensitive value case, not a low-risk compounder.",
+      "ir_url": "https://investors.thecignagroup.com/",
+      "sources": [
+        {"label": "Cigna Q2 2026 results", "url": "https://newsroom.thecignagroup.com/2026-07-30-The-Cigna-Group-Reports-Strong-Second-Quarter-2026-Results,-Raises-2026-Outlook"},
+        {"label": "Greenlight Q2 holdings", "url": "https://www.dataroma.com/m/holdings.php?m=GLRE"}
+      ]
+    },
+    "DECK": {
+      "tier": "Research",
+      "title": "Deckers: documented brand-recovery thesis",
+      "evidence": "Documented investor thesis",
+      "investor_thesis": "In Greenlight's Q4 2025 letter, Einhorn described tariff uncertainty, a European warehouse transition and warm UGG-season weather as the setbacks. His thesis was HOKA international expansion, reaccelerating growth, a strong net-cash balance sheet and faster buybacks. The letter disclosed an $85.49 average purchase price; that is a historical fund entry, not fair value.",
+      "thesis": "HOKA and UGG are valuable consumer brands with high returns and cash generation. If operational setbacks are temporary rather than evidence of brand fatigue, a single-digit forward multiple is worth serious research.",
+      "valuation": "9.6x analyst forward earnings, 42.6% vendor ROE and 8.0% vendor FCF yield. FY ended March 2026 FCF was $1.10B, a 10.1% historical yield at today's market cap; the last three fiscal years average 9.2%. A 25% cut to forecast EPS gives 12.8x. Annual and vendor cash-flow measures cover different periods and are shown separately.",
+      "risk": "HOKA growth can decelerate, UGG is seasonal, and tariffs and fashion shifts can compress margins. International sales also introduce currency and geopolitical exposure.",
+      "gate": "Check full-price sell-through, HOKA growth, inventories and cash conversion. Compare directly with CROX before assuming both deserve capital; the two share consumer-brand risk.",
+      "ir_url": "https://ir.deckers.com/",
+      "sources": [
+        {"label": "Greenlight Q4 2025 letter reproduction", "url": "https://hedgefundalpha.com/investor-letters/david-einhorn-greenlight-capital-q4-2025-letter/"},
+        {"label": "Einhorn DECK position history", "url": "https://www.dataroma.com/m/hist/hist.php?f=GLRE&s=DECK"},
+        {"label": "Deckers financial reports", "url": "https://ir.deckers.com/financials/annual-reports-and-proxies/default.aspx"}
+      ]
+    },
+    "AXP": {
+      "tier": "Research",
+      "title": "American Express: durable trust and network economics",
+      "evidence": "Documented investor thesis",
+      "investor_thesis": "Buffett's 2023 shareholder letter describes American Express's globally recognizable brand and the timeless need for unquestioned financial trust. He emphasizes staying with a wonderful business as earnings and dividends grow. Berkshire's Q2 2026 share count is unchanged, with 17.14% portfolio weight: conviction, not new buying.",
+      "thesis": "The affluent-customer brand, merchant network and membership model can sustain returns above ordinary banking. AXP remains the quality payments benchmark rather than forcing a weaker small-cap substitute.",
+      "valuation": "15.1x analyst forward earnings and 34.4% vendor ROE. Ordinary FCF yield is omitted because lending, deposits and regulatory capital make industrial-company FCF comparisons misleading. A 25% cut to forecast EPS gives 20.1x.",
+      "risk": "Credit losses, spending slowdowns, rewards costs and regulation can overwhelm fee growth. ROE must be read alongside capital and leverage, not as a standalone moat measure.",
+      "gate": "Check through-cycle credit losses, capital needs and membership/merchant retention. WEX is a niche payments analogue, not a replacement for AXP's brand or network.",
+      "ir_url": "https://ir.americanexpress.com/",
+      "sources": [
+        {"label": "Buffett's 2023 letter, printed pages 8–9", "url": "https://www.berkshirehathaway.com/letters/2023ltr.pdf"},
+        {"label": "Berkshire Q2 holdings", "url": "https://www.dataroma.com/m/holdings.php?m=BRK"}
+      ]
+    },
+    "CROX": {
+      "tier": "Research",
+      "new": true,
+      "analogue_of": "DECK",
+      "title": "Crocs: strongest smaller-and-cheaper analogue",
+      "evidence": "Documented Einhorn thesis; Li Lu rationale not disclosed",
+      "investor_thesis": "Greenlight's Q1 2026 letter, quoted by Insider Monkey/Yahoo, calls Crocs well-run with industry-leading margins, argues fears about the core brand are overblown, and points to international growth, normalizing U.S. comparisons and buybacks. It disclosed an $83.49 average entry at about 6x its 2026 EPS estimate. Li Lu bought in Q4 2025, added 41.22% in Q1 2026 and held unchanged in Q2 (2.89% portfolio weight); his specific rationale was not verified.",
+      "thesis": "Like DECK: high-margin footwear brands, international distribution, low physical capex and repurchases. At $5.67B versus DECK's $10.90B, CROX is about half the size; 7.9x versus 9.6x forward earnings and 9.4% versus 8.0% vendor FCF yield give an observable valuation discount.",
+      "valuation": "42.3% vendor ROE, but buybacks, debt and past impairments affect the equity denominator. 2025 FCF was $659.2M, or 11.6% at today's market cap; after $36.7M stock compensation the rough proxy is 11.0%. H1 2026 FCF was $232.0M, not a full-year run rate. At $118.19, company 2026 adjusted EPS guidance of $13.70–14.00 implies 8.4–8.6x, versus the vendor forward 7.9x (different estimate periods). A 25% haircut to the low end of guidance gives 11.5x.",
+      "risk": "The analogy breaks at the balance sheet: $1.31B borrowings against $170M cash, unlike DECK's net cash. HEYDUDE Q2 sales fell 5.7%, core Crocs North America grew only 0.4%, and fashion durability is uncertain. This is a U.S.-listed global business, not insulation from China, tariffs or international growth risk.",
+      "gate": "Value the core Crocs brand without assuming a HEYDUDE recovery; verify debt service and cash remaining after dilution. The cheap multiple must compensate for slower growth and a weaker balance sheet.",
+      "ir_url": "https://investors.crocs.com/",
+      "sources": [
+        {"label": "Greenlight Q1 2026 CROX thesis quotation", "url": "https://finance.yahoo.com/markets/stocks/articles/makes-crocs-crox-investment-choice-125819390.html"},
+        {"label": "Li Lu CROX accumulation history", "url": "https://www.dataroma.com/m/hist/hist.php?f=HC&s=CROX"},
+        {"label": "Crocs Q2 2026 results and guidance", "url": "https://investors.crocs.com/news-and-events/press-releases/press-release-details/2026/Crocs-Inc--Reports-Record-Second-Quarter-2026-Results-Raises-Full-Year-2026-Outlook/default.aspx"}
+      ]
+    },
+    "GRBK": {
+      "tier": "Research",
+      "new": true,
+      "analogue_of": "LEN",
+      "title": "Green Brick: smaller housing value candidate",
+      "evidence": "Our housing analogy; documented investor ownership and company economics",
+      "investor_thesis": "Berkshire is accumulating LEN, but we did not verify its stock-specific homebuilding thesis. The housing-shortage/recovery interpretation is ours. GRBK is already a 19.39% unchanged Greenlight position; Einhorn co-founded the business, and the Q2 letter lists it among the largest longs. That affiliation and long-standing ownership are not evidence of fresh open-market buying or a disclosed fair value.",
+      "thesis": "Housing demand and disciplined land economics in a smaller builder. GRBK's $2.82B cap is roughly one-sixth of LEN's $18.15B; vendor forward P/E is 10.9x versus 14.4x, ROE 16.4% versus 6.0%, and D/E 0.14 versus 0.28. These are screening comparisons, not proof of superior through-cycle returns.",
+      "valuation": "$65.47 is about 1.46x company Q2 book value of $44.82 per share. Q2 homebuilding gross margin was 29.8% and net homebuilding debt/capital 6.1%. Vendor FCF yield is just 0.25%; 2025 FCF was $208.4M, but 2024 only $21.5M because land/inventory spending moves cash flow. A three-year average gives 5.2% at today's market cap, not a normalized forecast. A 25% forecast EPS haircut gives 14.6x.",
+      "risk": "Texas concentration, rate-sensitive affordability and owned-land/inventory exposure. It does not copy LEN's asset-light strategy. Q2 incentives were 9%, gross margin fell 150 basis points year over year, and backlog dollars fell 23.6% despite stronger orders.",
+      "gate": "Stress lower selling prices and land write-downs before relying on book value. Check land investment returns and whether improved orders become profitable deliveries without larger incentives.",
+      "ir_url": "https://investors.greenbrickpartners.com/",
+      "sources": [
+        {"label": "Berkshire LEN activity history", "url": "https://www.dataroma.com/m/hist/hist.php?f=BRK&s=LEN"},
+        {"label": "Greenlight Q2 holdings", "url": "https://www.dataroma.com/m/holdings.php?m=GLRE"},
+        {"label": "Greenlight Q2 2026 letter reproduction", "url": "https://hedgefundalpha.com/investor-letters/greenlight-capital-q2-2026-letter/"},
+        {"label": "GRBK Q2 2026 release filed with SEC", "url": "https://www.sec.gov/Archives/edgar/data/1373670/000162828026050626/a2q22026ex99earningsrelease.htm"},
+        {"label": "Company history and land strategy", "url": "https://investors.greenbrickpartners.com/why-invest/default.aspx"}
+      ]
+    },
+    "GPC": {
+      "tier": "Watch",
+      "title": "Genuine Parts: conditional special situation",
+      "evidence": "Our inferred catalyst thesis; verified Klarman accumulation",
+      "investor_thesis": "Klarman's Baupost added 88.96% in Q2 2026, reaching 6.13% of its disclosed portfolio. We did not verify a public stock-specific Klarman explanation. The aftermarket resilience and separation thesis below is our inference from the business and announced transaction, not his stated rationale.",
+      "thesis": "Recurring repair demand plus a planned automotive/industrial separation may unlock value. This is a catalyst case rather than a clean high-ROE compounder.",
+      "valuation": "Ignore the vendor 504x trailing P/E as a normalized baseline. Company 2026 adjusted EPS guidance of $7.50–8.00 implies 15.8–16.8x at $126.07. FCF guidance of $550–700M implies only 3.2–4.0%, below the vendor 5.3%. The latest annual-statement FCF yield is 2.4%. Separation costs and segment debt allocations must be included.",
+      "risk": "The breakup can fail to create value, strand costs or transfer leverage unfavorably. Industrial cyclicality, weak reported returns and execution costs undermine a simple bargain claim.",
+      "gate": "Build a conservative sum-of-the-parts with segment operating earnings, debt and separation costs. Keep conditional until that shows a real discount.",
+      "ir_url": "https://www.genpt.com/",
+      "sources": [
+        {"label": "Baupost GPC history", "url": "https://www.dataroma.com/m/hist/hist.php?f=BAUPOST&s=GPC"},
+        {"label": "GPC Q2 2026 guidance", "url": "https://www.genpt.com/2026-07-21-Genuine-Parts-Company-Reports-Second-Quarter-2026-Results-Reaffirms-2026-Outlook-for-Adjusted-EPS-of-7-50-to-8-00"}
+      ]
+    },
+    "DORM": {
+      "tier": "Watch",
+      "new": true,
+      "analogue_of": "GPC",
+      "title": "Dorman: smaller aftermarket business, modest discount",
+      "evidence": "Our analogue; no holder found in the tracked manager sample",
+      "investor_thesis": "We infer the durable repair-demand part of the GPC case, then look upstream at replacement parts. No verified investor rationale or tracked holding is being claimed for DORM.",
+      "thesis": "Engineered replacement parts and repair solutions benefit from older, complex vehicles. $3.66B cap versus GPC's $17.38B, 13.4x versus 15.2x vendor forward P/E, ROE 15.0% versus 0.7%, and D/E 0.35 versus 1.46 make it worth comparing.",
+      "valuation": "Company 2026 adjusted EPS guidance of $8.50–8.80 implies 14.0–14.5x at $123.44, only modestly below GPC's 15.8–16.8x guidance multiple. Vendor FCF yield is 3.9%; 2025 annual FCF was $75.7M (2.1% yield), versus $191.6M in 2024. H1 2026 operating cash less capex was $178.9M, but tariff-cost recovery boosted the quarter. Do not annualize the refund-enhanced result.",
+      "risk": "DORM manufactures/develops parts; GPC distributes them. It does not inherit GPC's distribution scale, industrial exposure or breakup catalyst. Tariffs, customer concentration and working-capital swings can consume the apparent discount.",
+      "gate": "Remove tariff refunds from earnings/cash, check customer concentration and normalize inventory/receivables. Smaller and somewhat cheaper, but cash-flow evidence is not yet strong enough for the main six.",
+      "ir_url": "https://investors.dormanproducts.com/",
+      "sources": [
+        {"label": "Dorman Q2 2026 results, guidance and refund caveat", "url": "https://investors.dormanproducts.com/news-events/press-releases/detail/348/dorman-products-inc-reportssecond-quarter-2026-results-updates-2026-guidance"}
+      ]
+    },
+    "TTD": {
+      "tier": "Watch",
+      "new": true,
+      "analogue_of": "GOOGL",
+      "title": "The Trade Desk: partial advertising analogue only",
+      "evidence": "Our analogue; no holder found in the tracked manager sample",
+      "investor_thesis": "Translate the digital-advertising and scalable-platform part of Alphabet's economics, not its search moat. Buffett's actual framework is durable high returns; we have not established that TTD meets it.",
+      "thesis": "An independent buy-side advertising platform with data integrations and high retention. $5.66B cap, 11.9x vendor forward earnings, 15.4% ROE and 10.3% vendor FCF yield are attractive screening numbers against Alphabet's much larger size and 22.9x forward multiple.",
+      "valuation": "2025 annual FCF was $783.0M (13.8% at today's cap), but $490.6M stock compensation reduces a rough owner-cash proxy to $292.3M (5.2%). H1 2026 operating cash less property/software spending was $412.0M; subtracting $218.6M stock compensation leaves $193.4M, with working capital still affecting cash. This is a dilution-cost sensitivity, not an audited owner-earnings definition.",
+      "risk": "Q2 revenue grew only 3%, net income fell and adjusted EBITDA margin fell to 34% from 39%. Amazon/Google competition, identity/privacy rules and execution threaten the economics. TTD buys ads across third-party inventory; it does not own search intent, YouTube or Cloud.",
+      "gate": "Verify growth stabilization, take-rate durability and cash after dilution. Keep on the conditional list; smaller/cheaper is established, comparable moat quality is not.",
+      "ir_url": "https://investors.thetradedesk.com/",
+      "sources": [
+        {"label": "TTD Q2 2026 release and cash/SBC statements", "url": "https://investors.thetradedesk.com/news-and-events/news/news-details/2026/The-Trade-Desk-Reports-Second-Quarter-2026-Financial-Results/default.aspx"}
+      ]
+    },
+    "WEX": {
+      "tier": "Watch",
+      "new": true,
+      "analogue_of": "AXP",
+      "title": "WEX: niche payments analogue with funding complexity",
+      "evidence": "Our analogue; no holder found in the tracked manager sample",
+      "investor_thesis": "Translate AXP's recurring payments relationships into fleet, benefits and B2B workflow integration. The retention/switching-cost argument is ours; WEX does not reproduce Buffett's global consumer-brand thesis.",
+      "thesis": "Specialized payments and administrative workflows can create sticky customer relationships. $5.88B cap versus AXP's $205.12B, 8.1x versus 15.1x vendor forward earnings and 30.2% versus 34.4% ROE merit a closer look.",
+      "valuation": "At $172.48, company 2026 adjusted EPS guidance of $19.68–20.08 gives 8.6–8.8x. D/E is 3.98; credit-agreement leverage was 2.9x. Conventional vendor FCF yield is omitted. H1 company adjusted FCF was $268.5M while GAAP operating cash was negative $408.4M before $81M capex; deposits, receivables funding, investments and bank cash explain large adjustments. These are not interchangeable cash metrics.",
+      "risk": "Fuel prices helped reported growth: mobility transaction growth was only 0.1%. Credit/fraud losses, EV transition, interest rates and funding needs matter. AXP's brand, affluent customer network and scale are absent, and leverage can flatter ROE.",
+      "gate": "Reconcile operating cash to adjusted FCF and identify truly distributable cash after bank capital and funding requirements. Cheap adjusted EPS alone does not get it into the main six.",
+      "ir_url": "https://ir.wexinc.com/",
+      "sources": [
+        {"label": "WEX Q2 2026 results and cash-flow reconciliation", "url": "https://ir.wexinc.com/news/news-details/2026/WEX-Inc--Reports-Second-Quarter-2026-Financial-Results/default.aspx"}
+      ]
+    },
+    "PDD": {"tier": "Pass", "reason": "Removed from the main list for your risk preferences: China operating exposure, VIE/governance risk, Temu trade/regulatory uncertainty and policy dependence. Li Lu's accumulation and a 6.3x forward multiple do not resolve those risks. Cheap is not enough."},
+    "DAL": {"tier": "Pass", "reason": "Removed from the main list: capital-intensive, cyclical airline economics with fuel, labor and balance-sheet risks. Berkshire accumulation is real reported activity, but does not make those economics a comfortable fit."},
+    "AERO": {"tier": "Watch", "reason": "Speculative airline watch only. Klarman/Marks ownership is verified, but normalized lease-adjusted cash flow, fleet spending, net debt and ADS/share units need reconciliation. The vendor 26.7% equity FCF yield is not a reliable bargain conclusion on its own."},
+    "MU": {"tier": "Watch", "reason": "Needs cycle-normalized valuation. A 5.2x forward P/E and 88.3% ROE may reflect unusually elevated memory-cycle earnings; Tepper trimmed 41.44%. No Buy label without through-cycle earnings, capex and inventory work."},
+    "LEN": {"tier": "Watch", "reason": "Berkshire/Greenhaven accumulation is worth tracking, but 14.4x forward P/E and 6.0% ROE do not establish a bargain. GRBK is the smaller comparison to prioritize; neither escapes housing-cycle risk."},
+    "HCC": {"tier": "Watch", "reason": "Large Pabrai position, but he trimmed in Q2 and vendor FCF is negative. Requires normalized metallurgical-coal prices and post-expansion spending; no suitable less-cyclical analogue was established."},
+    "NFLX": {"tier": "Watch", "reason": "New reported Ackman/Fundsmith positions deserve attention, but content cash spending and the inconsistent vendor FCF must be reconciled. Less immediately compelling than the main six."},
+    "ADBE": {"tier": "Watch", "reason": "Numbers are attractive (8.6x forward P/E and 10.1% vendor FCF yield), but no holder surfaced in this manager sample and the AI/competitive moat requires separate work. Kept in the broader pool rather than promoted on metrics alone."}
+  },
+  "other_comparisons": [
+    {"ticker": "SMP", "anchor": "GPC", "metrics": "$0.84B; 7.7x forward P/E; ROE 12.5%; FCF omitted", "decision": "Cheaper, but weaker returns, 0.95 D/E and unreliable vendor cash data. DORM is the more promising operating-quality comparison."},
+    {"ticker": "CPAY", "anchor": "AXP", "metrics": "$26.38B; 12.8x forward P/E; ROE 29.2%; FCF omitted", "decision": "Credible B2B payments exposure, but less of a size/valuation discount than WEX and 2.75 D/E. Funding and acquired-growth cash need reconciliation."},
+    {"ticker": "FOUR", "anchor": "AXP", "metrics": "$2.96B; 6.2x forward P/E; ROE 6.5%; vendor FCF 11.9%", "decision": "Smaller and cheaper, but 2.62 D/E, acquisitions and weak reported ROE do not reproduce AXP's quality. Not selected."},
+    {"ticker": "PUBM", "anchor": "GOOGL", "metrics": "$0.85B; 22.9x forward P/E; ROE −5.6%; vendor FCF 7.1%", "decision": "Small ad-tech business, but not cheaper on forward earnings and negative ROE; weaker fit than TTD."},
+    {"ticker": "VRSN", "anchor": "GOOGL", "metrics": "$26.42B; 26.4x forward P/E; ROE unavailable; vendor FCF 3.2%", "decision": "A toll-like internet business and Berkshire holding, but different economics and no forward-earnings discount. Negative equity makes ROE unhelpful."},
+    {"ticker": "OMC", "anchor": "GOOGL", "metrics": "$20.64B; 6.5x forward P/E; ROE 6.1%; FCF omitted", "decision": "Cheap advertising exposure is not a scalable search/platform moat. Corporate-action/share-unit and cash inconsistencies need reconciliation."},
+    {"ticker": "ZD", "anchor": "GOOGL", "metrics": "$1.92B; 9.4x forward P/E; ROE −1.5%; FCF omitted", "decision": "Digital publishing has search/AI traffic dependence rather than ownership of the distribution moat. Negative ROE and unreliable cash data weaken the fit."},
+    {"ticker": "NVR", "anchor": "LEN", "metrics": "$15.99B; 15.1x forward P/E; ROE 31.5%; vendor FCF 5.7%", "decision": "Strong land-light builder, but only modestly smaller than LEN and not cheaper on forward earnings. A useful quality benchmark, not the small-cheap result."},
+    {"ticker": "GPN", "anchor": "AXP", "metrics": "$21.75B; 5.1x forward P/E; ROE 2.4%; FCF omitted", "decision": "Greenlight's Q4 letter documents a Worldpay/synergy/capital-return thesis. The Q2 tracked holdings sample has no position. Integration and pro-forma cash need fresh reconciliation; not a clean AXP analogue."}
+  ]
+}

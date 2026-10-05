@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Investor theses and smaller-company shortlist</title>
+<style>
+  body { font: 16px/1.6 system-ui; max-width: 1000px; margin: auto; padding: 20px; background: #0d1117; color: #e6edf3; }
+  a { color: #58a6ff; } h2 { margin-top: 28px; } h3 { margin-bottom: 4px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; } th, td { text-align: left; padding: 8px; border-bottom: 1px solid #30363d; vertical-align: top; }
+  .table { overflow-x: auto; } .muted { color: #8b949e; } .card { border: 1px solid #30363d; background: #161b22; border-radius: 8px; padding: 16px; margin: 16px 0; }
+  summary { cursor: pointer; color: #58a6ff; } p { margin: 8px 0; }
+</style>
+</head>
+<body>
+<a href="index.html">← Stock Research</a>
+<h1>Copy the economics, not the ticker</h1>
+<p class="muted">Thesis review: {{ research.reviewed }} · Market numbers: October 5, 2026 snapshots · Holdings: Q2 2026 (June 30), not live positions</p>
+<p><strong>Focused list: Alphabet, CI, DECK, AXP, CROX and GRBK.</strong> CROX and GRBK are the two new priority ideas. DORM, TTD and WEX join GPC as conditional watches. PDD and DAL leave the main list; AERO stays speculative.</p>
+<p>The original mechanical Strong Buy/Buy labels have been replaced with research priorities. A drawdown, high ROE, low forecast P/E or respected holder cannot establish normalized value by itself.</p>
+<h2>The main six, side by side</h2>
+<div class="table"><table>
+<thead><tr><th scope="col">Company</th><th scope="col">Cap</th><th scope="col">Forward P/E</th><th scope="col">ROE</th><th scope="col">Vendor FCF yield</th><th scope="col">P/E if forecast EPS falls 25%</th></tr></thead>
+<tbody>{% for s in shortlist %}<tr><th scope="row"><a href="{{ s.dossier_href }}">{{ s.ticker }}</a></th><td>${{ '%.2f'|format(s.market_cap/1e9) }}B</td><td>{{ '%.1f'|format(s.forward_pe) if s.forward_pe is not none else 'n/a' }}×</td><td>{{ '%.1f'|format(s.roe) ~ '%' if s.roe is not none else 'n/a' }}</td><td>{{ '%.1f'|format(s.fcf_yield) ~ '%' if s.fcf_yield is not none else 'omitted' }}</td><td>{{ '%.1f'|format(s.forward_pe/0.75) ~ '×' if s.forward_pe is not none else 'n/a' }}</td></tr>{% endfor %}</tbody>
+</table></div>
+<p class="muted">The haircut is an arithmetic stress check at a constant share price, not a forecast or price target. Forward P/E is analyst consensus; fiscal periods and adjustments can differ across companies. ROE is vendor-reported and can be inflated by leverage, buybacks or impairments. CI cash needs insurer-capital analysis; AXP ordinary FCF is omitted.</p>
+<h2>Five smaller-company ideas</h2>
+<p>“Cheaper” means a lower valuation multiple or a better cash-flow yield, not a lower nominal share price. All five are smaller by market capitalization than their anchor. No comparable economic moat is assumed from industry membership alone.</p>
+{% for candidate, anchor in comparisons %}
+<div class="card">
+<h3><a href="{{ candidate.dossier_href }}">{{ candidate.ticker }}</a> ← <a href="{{ anchor.dossier_href }}">{{ anchor.ticker }}</a> · {{ candidate.verdict }}</h3>
+<p class="muted">{{ candidate.research.evidence }}</p>
+<div class="table"><table>
+<thead><tr><th scope="col">Metric</th><th scope="col">{{ anchor.ticker }}</th><th scope="col">{{ candidate.ticker }}</th></tr></thead>
+<tbody>
+<tr><th scope="row">Market cap</th><td>${{ '%.2f'|format(anchor.market_cap/1e9) }}B</td><td>${{ '%.2f'|format(candidate.market_cap/1e9) }}B</td></tr>
+<tr><th scope="row">Forward P/E</th><td>{{ '%.1f'|format(anchor.forward_pe) if anchor.forward_pe is not none else 'n/a' }}×</td><td>{{ '%.1f'|format(candidate.forward_pe) if candidate.forward_pe is not none else 'n/a' }}×</td></tr>
+<tr><th scope="row">ROE</th><td>{{ '%.1f'|format(anchor.roe) ~ '%' if anchor.roe is not none else 'n/a' }}</td><td>{{ '%.1f'|format(candidate.roe) ~ '%' if candidate.roe is not none else 'n/a' }}</td></tr>
+<tr><th scope="row">Vendor FCF yield</th><td>{{ '%.1f'|format(anchor.fcf_yield) ~ '%' if anchor.fcf_yield is not none else 'omitted' }}</td><td>{{ '%.1f'|format(candidate.fcf_yield) ~ '%' if candidate.fcf_yield is not none else 'omitted' }}</td></tr>
+<tr><th scope="row">Debt/equity</th><td>{{ '%.2f'|format(anchor.debt_equity) if anchor.debt_equity is not none else 'n/a' }}</td><td>{{ '%.2f'|format(candidate.debt_equity) if candidate.debt_equity is not none else 'n/a' }}</td></tr>
+</tbody></table></div>
+<p><strong>Investor rationale:</strong> {{ candidate.research.investor_thesis }}</p>
+<p><strong>The matching economics:</strong> {{ candidate.research.thesis }}</p>
+<p><strong>Valuation cross-check:</strong> {{ candidate.research.valuation }}</p>
+<p><strong>Where the analogy breaks:</strong> {{ candidate.research.risk }}</p>
+<p><strong>Next test:</strong> {{ candidate.research.gate }}</p>
+<p class="muted">Candidate quote: {{ candidate.market_data_at }} · Anchor quote: {{ anchor.market_data_at }}</p>
+<p>{% for source in candidate.research.sources %}<a href="{{ source.url }}">{{ source.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+</div>
+{% endfor %}
+<h2>Why the existing priorities survive</h2>
+{% for s in shortlist + conditional if not s.research.new %}
+<div class="card"><h3><a href="{{ s.dossier_href }}">{{ s.research.title }}</a> · {{ s.verdict }}</h3>
+<p class="muted">{{ s.research.evidence }}</p>
+<p><strong>Investor rationale:</strong> {{ s.research.investor_thesis }}</p>
+<p>{{ s.research.thesis }}</p><p><strong>Valuation:</strong> {{ s.research.valuation }}</p>
+<p><strong>Failure case:</strong> {{ s.research.risk }}</p><p><strong>Next test:</strong> {{ s.research.gate }}</p>
+<p>{% for source in s.research.sources %}<a href="{{ source.url }}">{{ source.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p></div>
+{% endfor %}
+<h2>What was cut or deferred</h2>
+<ul>{% for s in decisions %}<li><strong>{{ s.ticker }} · {{ s.verdict }}:</strong> {{ s.research.reason }}</li>{% endfor %}</ul>
+<details><summary>Nine other comparisons screened, and why they did not make the shortlist</summary>
+<p class="muted">Together with the five additions, 14 distinct potential analogues were checked. GOOG was also quoted as a share-class check, not counted as a separate business. These are initial October 5 screening comparisons, not full underwriting.</p>
+<div class="table"><table><thead><tr><th scope="col">Candidate / anchor</th><th scope="col">Snapshot numbers</th><th scope="col">Decision</th></tr></thead><tbody>
+{% for item in research.other_comparisons %}<tr><th scope="row">{{ item.ticker }} / {{ item.anchor }}</th><td>{{ item.metrics }}</td><td>{{ item.decision }}</td></tr>{% endfor %}
+</tbody></table></div></details>
+<h2>How the thesis search works</h2>
+<ol>
+<li><strong>Verify ownership and accumulation.</strong> Use Dataroma filing-quarter holdings and share-count histories. Preferred investors Buffett/Berkshire, Li Lu, Pabrai and Klarman receive extra screening weight; a trim is not a buying signal.</li>
+<li><strong>Find the actual reason.</strong> Investor letters, interviews and presentations can document it. A 13F cannot. Here, Alphabet/AXP and DECK/CROX have documented rationale; GPC/LEN mappings are explicitly our inference. No Li Lu stock-specific CROX explanation was verified.</li>
+<li><strong>Extract the economics.</strong> Durable customer behavior, pricing power, recurring demand, capital requirements and reinvestment runway matter more than sharing an industry label.</li>
+<li><strong>Compare size and valuation.</strong> Check forward earnings, cash after capex, returns and balance sheets alongside the anchor; retain reasons the analogy fails.</li>
+<li><strong>Normalize before upgrading.</strong> Separate growth and maintenance capex; account for stock compensation, cycle peaks, insurer/bank funding and one-off refunds. These remain research ideas until the valuation work clears that hurdle.</li>
+</ol>
+<p class="muted">Historical annual-statement cash-flow checks use Yahoo's standardized cash-flow statements (fiscal dates stated in the notes), calculated as operating cash less reported capex and divided by the October 5 market cap. They are cross-checks, not independently audited extracts or fair-value forecasts. Vendor info-field FCF, annual FCF, company guidance and half-year results are kept explicitly labeled. FCF less stock compensation is only a rough dilution-cost sensitivity. Thesis text and these historical checks remain dated {{ research.reviewed }} when market quotes refresh; a new quote does not constitute a new thesis review.</p>
+<p><a href="research-2026-10-05.html">Original first-draft research notes (superseded) →</a></p>
+</body>
+</html>

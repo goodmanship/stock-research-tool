@@ -1,6 +1,7 @@
 """Screening rules and pipeline configuration."""
 
 from pathlib import Path
+import json
 
 # Paths
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -47,3 +48,6 @@ SHORT_INTEREST_MIN = 5.0   # Min short float % for contrarian signal
 SITE_TITLE = "Stock Research"
 MAX_CANDIDATES = 100       # Cap screener output
 RESEARCH_TICKERS = {"GOOGL", "PDD", "LEN", "GPC", "HCC", "ABNB", "AXP", "C", "CI", "MRP", "MU", "NFLX", "AERO", "CPRX"}
+RESEARCH = json.loads((PROJECT_ROOT / "research" / "shortlist.json").read_text())
+RESEARCH_NOTES = RESEARCH["stocks"]
+RESEARCH_TICKERS |= set(RESEARCH_NOTES)

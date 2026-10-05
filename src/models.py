@@ -41,11 +41,11 @@ class Stock:
     pct_from_52w_high: Optional[float] = None
     short_float: Optional[float] = None
     timing_score: float = 0  # -1 to 1
-    timing_label: str = ""   # "buy now", "wait", "avoid"
+    timing_label: str = ""   # "screen signal", "watch", "wait", "no data"
     news_summary: str = ""
 
     # Final (Stage 4)
-    verdict: str = ""  # "Strong Buy", "Buy", "Watch", "Pass"
+    verdict: str = ""  # "Research", "Watch", "Pass" (research priorities, not trade instructions)
     bull_case: list[str] = field(default_factory=list)
     bear_case: list[str] = field(default_factory=list)
     one_liner: str = ""

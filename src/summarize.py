@@ -1,10 +1,13 @@
 """Stage 4: Template-based buy case generation."""
 
 from .models import Stock, load_stocks, save_stocks
-from .config import DATA_DIR
+from .config import DATA_DIR, RESEARCH_NOTES
 
 
 def generate_bull_case(s: Stock) -> list[str]:
+    note = RESEARCH_NOTES.get(s.ticker, {})
+    if note.get("thesis"):
+        return [note["thesis"]]
     points = []
     buyers = [item["investor"] for item in s.investor_activity if item["activity"].startswith(("Buy", "Add"))]
     if buyers:
@@ -21,15 +24,20 @@ def generate_bull_case(s: Stock) -> list[str]:
         names = ", ".join(s.superinvestor_holders[:3])
         points.append(f"Held by: {names}")
     if s.pct_from_52w_high and s.pct_from_52w_high < -15:
-        points.append(f"Beaten down {s.pct_from_52w_high:.0f}% from highs — potential entry")
+        points.append(f"Down {s.pct_from_52w_high:.0f}% from highs; fair value not established")
     if s.pe and s.pe < 15:
         points.append(f"Cheap on earnings (P/E {s.pe:.1f})")
     if not points:
-        points.append("Passed quantitative screen filters")
+        points.append("No specific business thesis established by this screen")
     return points[:5]
 
 
 def generate_bear_case(s: Stock) -> list[str]:
+    note = RESEARCH_NOTES.get(s.ticker, {})
+    if note.get("risk"):
+        return [note["risk"], note["gate"], *s.data_notes]
+    if note.get("reason"):
+        return [note["reason"], *s.data_notes]
     risks = []
     risks.extend(s.data_notes)
     reducers = [item["investor"] for item in s.investor_activity if item["activity"].startswith("Reduce")]
@@ -46,32 +54,17 @@ def generate_bear_case(s: Stock) -> list[str]:
     if s.net_margin and s.net_margin < 5:
         risks.append(f"Thin margins ({s.net_margin:.1f}%)")
     if not risks:
-        risks.append("No major red flags identified")
+        risks.append("Screen does not assess moat durability, normalized earnings or fair value")
     return risks[:3]
 
 
 def assign_verdict(s: Stock) -> str:
     if s.timing_label == "no data":
         return "Pass"
-    score = 0
-    if s.smart_money_score >= 4:
-        score += 2
-    elif s.smart_money_score >= 2:
-        score += 1
-    if s.timing_label == "buy now":
-        score += 2
-    elif s.timing_label == "watch":
-        score += 1
-    if s.fcf_yield and s.fcf_yield > 5:
-        score += 1
-    if s.roe and s.roe > 15:
-        score += 1
-
-    if score >= 5:
-        return "Strong Buy"
-    elif score >= 3:
-        return "Buy"
-    elif score >= 1:
+    if s.ticker in RESEARCH_NOTES:
+        return RESEARCH_NOTES[s.ticker]["tier"]
+    # A screen can surface a watch, not establish a buy recommendation.
+    if s.smart_money_score > 0 or (s.fcf_yield is not None and s.fcf_yield > 5) or (s.roe is not None and s.roe > 15):
         return "Watch"
     return "Pass"
 
@@ -96,9 +89,9 @@ def summarize_stocks(stocks: list[Stock]) -> list[Stock]:
         s.bear_case = generate_bear_case(s)
         s.verdict = assign_verdict(s)
         s.one_liner = generate_one_liner(s)
-    # Sort: Strong Buy first, then Buy, etc.
-    order = {"Strong Buy": 0, "Buy": 1, "Watch": 2, "Pass": 3}
-    stocks.sort(key=lambda s: (order.get(s.verdict, 9), -s.smart_money_score))
+    order = {"Research": 0, "Watch": 1, "Pass": 2}
+    priorities = list(RESEARCH_NOTES)
+    stocks.sort(key=lambda s: (order.get(s.verdict, 9), priorities.index(s.ticker) if s.ticker in priorities else len(priorities), -s.smart_money_score))
     return stocks
 
 

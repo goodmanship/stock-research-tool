@@ -26,6 +26,15 @@ and REITs are omitted. Inconsistent P/E share units and FCF above operating
 cash flow are flagged rather than ranked as bargains. Raw data is saved locally in `data/`.
 The refresh stops before rebuilding the site if any market quote is missing.
 
+The home page shows six editorial research priorities, with conditional watches
+and the broader pool behind expandable sections. `research/shortlist.json`
+stores the dated thesis, evidence, valuation checks, risks and source links;
+`docs/thesis-shortlist.html` compares five smaller-company ideas with their anchors.
+Research / Watch / Pass are research priorities, not trade recommendations.
+Quantitative signals cannot generate Buy / Strong Buy labels. Timing only credits
+material reported buys/adds, not unchanged or reduced holdings or short interest.
+Refreshing quotes does not update the dated thesis or historical valuation notes.
+
 ```bash
 # Install dependencies
 pip install -r requirements.txt

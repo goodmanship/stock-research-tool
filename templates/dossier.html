@@ -14,8 +14,9 @@
   h1 { font-size: 1.6rem; margin: 0 0 4px; }
   .sub { color: var(--muted); margin-bottom: 12px; }
   .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; margin-right: 8px; }
-  .strong-buy { background: var(--green); color: #000; }
-  .buy-now { background: #238636; color: #fff; }
+   .research { background: #1f6feb; color: #fff; }
+   .watch { background: var(--yellow); color: #000; }
+   .pass, .signal { background: var(--border); color: var(--muted); }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
   .metric { background: #0f141b; border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
   .metric-label { color: var(--muted); font-size: 0.78rem; margin-bottom: 4px; }
@@ -34,13 +35,31 @@
   <div class="hero">
     <h1>{{ stock.ticker }} · {{ stock.name }}</h1>
     <div class="sub">{{ stock.sector }} · {{ stock.industry }}{% if stock.hq %} · {{ stock.hq }}{% endif %}</div>
-    <span class="pill strong-buy">{{ stock.verdict }}</span>
-    <span class="pill buy-now">{{ stock.timing_label|title }}</span>
+    <span class="pill {{ stock.verdict_class }}">{{ stock.verdict }}</span>
+    <span class="pill signal">Price/accumulation: {{ stock.timing_label|title }}</span>
     <p style="margin-top:12px;">{{ stock.one_liner }}</p>
     <p class="muted">Quote timestamp: {{ stock.market_data_at }}</p>
     {% for note in stock.data_notes %}<p class="muted">{{ note }}</p>{% endfor %}
     <p><a href="{{ stock.yahoo_href }}" target="_blank">Yahoo Finance</a>{% if stock.ir_href %} · <a href="{{ stock.ir_href }}" target="_blank">Investor relations</a>{% endif %}</p>
   </div>
+
+  {% if stock.research.thesis %}
+  <div class="card">
+    <h2>{{ stock.research.title }}</h2>
+    <p class="muted">Thesis reviewed {{ stock.reviewed }} · {{ stock.research.evidence }}</p>
+    <h2>Why the investor bought — what the evidence supports</h2>
+    <p>{{ stock.research.investor_thesis }}</p>
+    <h2>Our thesis{% if stock.research.analogue_of %} · analogue of {{ stock.research.analogue_of }}{% endif %}</h2>
+    <p>{{ stock.research.thesis }}</p>
+    <h2>Valuation cross-check</h2><p>{{ stock.research.valuation }}</p>
+    <h2>Where the thesis or analogy breaks</h2><p>{{ stock.research.risk }}</p>
+    <h2>What must be established next</h2><p>{{ stock.research.gate }}</p>
+    <p>{% for source in stock.research.sources %}<a href="{{ source.url }}">{{ source.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+    <p><a href="../thesis-shortlist.html">All thesis comparisons →</a></p>
+  </div>
+  {% elif stock.research.reason %}
+  <div class="card"><h2>Research decision · {{ stock.reviewed }}</h2><p>{{ stock.research.reason }}</p></div>
+  {% endif %}
 
   <div class="card">
     <h2>Executive summary</h2>
@@ -68,7 +87,7 @@
       <div class="metric"><div class="metric-label">ROE</div><div class="metric-value">{{ stock.roe }}</div></div>
       <div class="metric"><div class="metric-label">Gross margin</div><div class="metric-value">{{ stock.gross_margin }}</div></div>
       <div class="metric"><div class="metric-label">Net margin</div><div class="metric-value">{{ stock.net_margin }}</div></div>
-      <div class="metric"><div class="metric-label">FCF yield</div><div class="metric-value">{{ stock.fcf_yield }}</div></div>
+      <div class="metric"><div class="metric-label">Vendor FCF yield</div><div class="metric-value">{{ stock.fcf_yield }}</div></div>
       <div class="metric"><div class="metric-label">Revenue growth</div><div class="metric-value">{{ stock.revenue_growth }}</div></div>
       <div class="metric"><div class="metric-label">Earnings growth</div><div class="metric-value">{{ stock.earnings_growth }}</div></div>
       <div class="metric"><div class="metric-label">Institutional ownership</div><div class="metric-value">{{ stock.institutional_pct }}</div></div>

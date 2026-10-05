@@ -1,4 +1,4 @@
-"""Refresh the published watchlist plus five investor-sourced research ideas."""
+"""Refresh the published watchlist and dated thesis-research candidates."""
 
 from bs4 import BeautifulSoup
 
@@ -11,7 +11,7 @@ from .build_site import build
 
 def run():
     soup = BeautifulSoup((DOCS_DIR / "index.html").read_text(), "lxml")
-    tickers = {node.get_text(strip=True) for node in soup.select(".ticker")}
+    tickers = {node.get_text(strip=True) for node in soup.select(".stock-header .ticker")}
     if not tickers:
         raise ValueError("No published watchlist found; refusing to overwrite the site")
     # Confirmed corporate actions: BK renamed BNY; CTRA merged into DVN;

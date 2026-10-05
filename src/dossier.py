@@ -1,4 +1,4 @@
-"""Generate dossier pages for strong-buy stocks."""
+"""Generate dossier pages for researched stocks."""
 
 from __future__ import annotations
 
@@ -10,8 +10,9 @@ import httpx
 import yfinance as yf
 from jinja2 import Environment, FileSystemLoader
 
-from .config import DATA_DIR, DOCS_DIR, TEMPLATES_DIR, RESEARCH_TICKERS
+from .config import DATA_DIR, DOCS_DIR, TEMPLATES_DIR, RESEARCH_TICKERS, RESEARCH, RESEARCH_NOTES
 from .models import Stock, load_stocks
+from .summarize import summarize_stocks
 
 
 def slugify(value: str) -> str:
@@ -79,6 +80,11 @@ def business_model(info: dict, stock: Stock) -> list[str]:
 
 
 def fair_assessment(stock: Stock, info: dict) -> dict:
+    note = RESEARCH_NOTES.get(stock.ticker, {})
+    if note.get("thesis"):
+        return {"positives": [note["thesis"]], "cautions": [note["risk"], note["gate"], *stock.data_notes]}
+    if note.get("reason"):
+        return {"positives": ["Ownership and metrics are screening context; no buy case established."], "cautions": [note["reason"], *stock.data_notes]}
     positives = []
     cautions = []
 
@@ -238,6 +244,7 @@ def build_dossier_payload(stock: Stock) -> dict:
     assessment = fair_assessment(stock, info)
     slug = slugify(stock.ticker)
     website = info.get("website")
+    note = RESEARCH_NOTES.get(stock.ticker, {})
 
     return {
         "ticker": stock.ticker,
@@ -245,7 +252,9 @@ def build_dossier_payload(stock: Stock) -> dict:
         "name": info.get("longName") or stock.name,
         "website": website,
         "yahoo_href": f"https://finance.yahoo.com/quote/{stock.ticker}",
-        "ir_href": guess_ir_link(website),
+        "ir_href": note.get("ir_url") or guess_ir_link(website),
+        "research": note,
+        "reviewed": RESEARCH["reviewed"],
         "sector": stock.sector,
         "industry": stock.industry,
         "hq": ", ".join([x for x in [info.get("city"), info.get("state"), info.get("country")] if x]),
@@ -270,14 +279,15 @@ def build_dossier_payload(stock: Stock) -> dict:
         "assessment": assessment,
         "investors": investor_context(stock),
         "verdict": stock.verdict,
+        "verdict_class": stock.verdict.lower().replace(" ", "-"),
         "timing_label": stock.timing_label,
         "one_liner": stock.one_liner,
     }
 
 
 def build() -> list[Path]:
-    stocks = load_stocks(DATA_DIR / "04_final.json")
-    dossier_stocks = [s for s in stocks if s.verdict == "Strong Buy" or s.ticker in RESEARCH_TICKERS or (DOCS_DIR / "stocks" / f"{slugify(s.ticker)}.html").exists()]
+    stocks = summarize_stocks(load_stocks(DATA_DIR / "04_final.json"))
+    dossier_stocks = [s for s in stocks if s.ticker in RESEARCH_TICKERS or (DOCS_DIR / "stocks" / f"{slugify(s.ticker)}.html").exists()]
 
     env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=True, trim_blocks=True, lstrip_blocks=True)
     template = env.get_template("dossier.html")

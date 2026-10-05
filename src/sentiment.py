@@ -64,20 +64,18 @@ def enrich_with_timing(stocks: list[Stock]) -> list[Stock]:
                 stock.fcf_yield = (fcf / mcap) * 100
             stock.market_cap = mcap or stock.market_cap
 
-            # Timing score: contrarian = down from highs + smart money holds
+            # Price/accumulation screen; neither drawdown nor shorts establish value.
             score = 0.0
             if stock.pct_from_52w_high is not None and stock.pct_from_52w_high <= ALERT_DROP_PCT:
                 score += 0.4  # beaten down
-            if stock.smart_money_score > 0:
+            if any(item["activity"].startswith(("Buy", "Add")) and item["portfolio_percent"] >= 0.1 for item in stock.investor_activity):
                 score += 0.3
-            if stock.short_float and stock.short_float > 5:
-                score += 0.2  # contrarian squeeze potential
             if stock.fcf_yield and stock.fcf_yield > 5:
                 score += 0.1  # strong cash generation
 
             stock.timing_score = min(score, 1.0)
             if score >= 0.6:
-                stock.timing_label = "buy now"
+                stock.timing_label = "screen signal"
             elif score >= 0.3:
                 stock.timing_label = "watch"
             else:
@@ -95,8 +93,8 @@ def run():
     print("📈 Stage 3: Sentiment & timing...")
     stocks = load_stocks(DATA_DIR / "02_surveyed.json")
     stocks = enrich_with_timing(stocks)
-    buy_now = [s for s in stocks if s.timing_label == "buy now"]
-    print(f"   {len(buy_now)} flagged as 'buy now'")
+    signals = [s for s in stocks if s.timing_label == "screen signal"]
+    print(f"   {len(signals)} price/accumulation screen signals")
     save_stocks(stocks, DATA_DIR / "03_sentiment.json")
     return stocks
 
